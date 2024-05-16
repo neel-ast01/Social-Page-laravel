@@ -49,8 +49,8 @@
 
 
     @if (Auth::check())
-        <a class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
-            <img src="{{ empty(Auth::user()->profile_picture) ? url('https://storage.sticker.show/cdn-cgi/image/width=512,quality=85/https://storage.sticker.show/64e4db06-fa09-4d48-8942-2677c9b8f8f5.png') : asset('storage\app\profile_pictures' . Auth::user()->profile_picture) }}"
+        <a href="{{ route('profile.index') }}" class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
+            <img src="assests/{{auth()->user()->profile_picture}}"
                 alt="Profile Picture" class="flex-shrink-0 w-10 h-10 rounded-full">
 
             <div class="flex flex-col ml-2">

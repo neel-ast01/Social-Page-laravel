@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class LoginController extends Controller
         ]);
 
         // Check if the email exists in the users table
-        $user = \App\Models\User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return back()->withErrors([
@@ -33,7 +34,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('posts.index');
         } else {
             return back()->withErrors([
                 'password' => 'The provided credentials (email and password) do not match.',

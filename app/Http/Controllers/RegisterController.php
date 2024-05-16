@@ -25,13 +25,29 @@ class RegisterController extends Controller
         $user->password = Hash::make($validatedData['password']);
 
         // Check if a profile picture was uploaded
+        // if ($request->hasFile('profile_picture')) {
+        //     $profilePicturePath = $request->file('profile_picture')->store('public/assets');
+        //     $user->profile_picture = $profilePicturePath;
+        // }
+
         if ($request->hasFile('profile_picture')) {
-            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures');
-            $user->profile_picture = $profilePicturePath;
+            $file = $request->file('profile_picture');
+            $originalName = $file->getClientOriginalName();
+            $file->move(public_path('assests'), $originalName);
+            $user->profile_picture = $originalName;
         }
+
+        // if ($request->hasFile('profile_picture')) {
+        //     $file = $request->file('profile_picture');
+        //     $fileName = $file->getClientOriginalName();
+        //    
+        //     $user->file = $fileName;
+        // }
+
+
 
         $user->save();
 
-        return redirect()->route('login')->with('success', 'User registered successfully');
+        return redirect()->route('posts.index')->with('success', 'User registered successfully');
     }
 }
