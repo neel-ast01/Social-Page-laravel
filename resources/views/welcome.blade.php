@@ -7,7 +7,7 @@
 
 </head>
 
-<body style="background: #edf2f7;">
+<body class="" style="background: #edf2f7;">
     <div class="h-screen overflow-hidden flex items-center justify-center">
         <div class="flex justify-between mx-32 w-screen h-screen px-4 text-gray-700">
             @include('partials.aside')

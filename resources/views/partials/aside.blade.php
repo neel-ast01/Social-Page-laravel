@@ -2,7 +2,7 @@
     <div class="flex justify-between mx-32 w-screen h-screen px-4 text-gray-700"> --}}
 
 <div class="flex flex-col w-1/5 py-4 pr-3">
-    <a class="flex px-3 py-2 mt-2 text-lg font-medium rounded-lg hover:bg-gray-300" href="#"> <svg
+    <a class="flex px-3 py-2 mt-2 text-lg font-medium rounded-lg hover:bg-gray-300" href="{{ route('home') }}"> <svg
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6 mr-2">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,9 +49,10 @@
 
 
     @if (Auth::check())
-        <a href="{{ route('profile.index') }}" class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
-            <img src="assests/{{auth()->user()->profile_picture}}"
-                alt="Profile Picture" class="flex-shrink-0 w-10 h-10 rounded-full">
+        <a href="{{ route('profile.index') }}"
+            class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
+            <img src="assests/{{ auth()->user()->profile_picture }}" alt="Profile Picture"
+                class="flex-shrink-0 w-10 h-10 rounded-full">
 
             <div class="flex flex-col ml-2">
                 <span class="mt-1 text-sm font-semibold leading-none">

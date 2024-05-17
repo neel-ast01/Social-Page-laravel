@@ -34,7 +34,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('posts.index');
+            return redirect()->intended('/');
         } else {
             return back()->withErrors([
                 'password' => 'The provided credentials (email and password) do not match.',

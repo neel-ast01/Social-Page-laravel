@@ -3,35 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
     public function like(Request $request)
     {
-        $like = Like::create([
-            'user_id' => auth()->id(),
-            'post_id' => $request->post_id,
-        ]);
+        try {
 
-        $likeCount = Like::where('post_id', $request->post_id)->count();
+            $postId = $request->input('postid');
 
-        return response()->json(['success' => true, 'like_count' => $likeCount, 'like' => $like]);
-    }
+            $user = Auth::user();
 
 
-    public function unlike(Request $request)
-    {
-        $like = Like::where('user_id', auth()->id())
-            ->where('post_id', $request->post_id)
-            ->first();
+            $like = Like::where('user_id', $user->id)->where('post_id', $postId)->first();
 
-        if ($like) {
-            $like->delete();
+            if ($like) {
+
+                $like->delete();
+            } else {
+
+                Like::create(['user_id' => $user->id, 'post_id' => $postId]);
+            }
+
+
+            $likeCount = Like::where('post_id', $postId)->count();
+
+            return response()->json(['success' => true, 'likeCount' => $likeCount]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
         }
-
-        $likeCount = Like::where('post_id', $request->post_id)->count();
-
-        return response()->json(['success' => true, 'like_count' => $likeCount]);
     }
+
+    // public function unlike(Request $request)
+    // {
+    //     $post = Post::findOrFail($request->postid);
+    //     $user = Auth::user();
+
+    //     $like = Like::where('user_id', $user->id)->where('post_id', $post->id)->first();
+    //     if ($like) {
+    //         $like->delete();
+    //         $post->likes--;
+    //         $post->save();
+    //     }
+
+    //     return response()->json(['likes' => $post->likes]);
+    // }
 }

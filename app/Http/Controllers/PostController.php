@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
@@ -14,17 +16,36 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user') ->orderBy('created_at', 'desc')->get();
-        return view('home', compact('posts'));
+        $user = auth()->user();
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->get();
+        return view('home', compact('posts', 'user'));
         // return $posts;
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        
+        // $post = Post::findOrFail($request->postid);
+        // $user = Auth::user();
+
+        // $like = Like::where('user_id', $user->id)->where('post_id', $post->id)->first();
+
+        // if ($like) {
+        //     $like->delete();
+        //     $post->likes--;
+        // } else {
+        //     $like = new Like();
+        //     $like->user_id = $user->id;
+        //     $like->post_id = $post->id;
+        //     $like->save();
+        //     $post->likes++;
+        // }
+
+        // $post->save();
+
+        // return response()->json(['likes' => $post->likes]);
     }
 
     /**
@@ -88,6 +109,6 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // return "Hrllo";
     }
 }
