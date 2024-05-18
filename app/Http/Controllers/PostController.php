@@ -115,7 +115,6 @@ class PostController extends Controller
 
         if ($request->hasFile('post_img')) {
             $file = $request->file('post_img');
-
             $fileName = $file->getClientOriginalName();
             $file->move(public_path('assests/posts'), $fileName);
             $post->post_image = $fileName;

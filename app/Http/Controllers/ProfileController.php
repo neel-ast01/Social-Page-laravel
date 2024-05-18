@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,7 +57,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // dd($request);
+        $user->fullName = $request->input('fullName');
+        $user->bio = $request->input('bio');
+        $user->profile_link = $request->input('profile_link');
+
+        if ($request->hasFile('profile_picture')) {
+            // Upload new profile picture
+            $profilePicture = $request->file('profile_picture');
+
+            $originalName = $profilePicture->getClientOriginalName();
+            $profilePicture->move(public_path('assests'), $originalName);
+            $user->profile_picture = $originalName;
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true, 'user' => $user]);
     }
 
     /**

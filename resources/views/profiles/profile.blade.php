@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                post</button> -->
+                                                                                                                                                                                                                                                                                                                    post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -22,7 +22,7 @@
                         <div class="flex flex-1">
                             <div style="margin-top: -6rem;">
                                 <div style="height:9rem; width:9rem;" class="md rounded-full relative avatar">
-                                    <img style="height:9rem; width:9rem;"
+                                    <img id="profile-image" style="height:9rem; width:9rem;"
                                         class="md rounded-full relative border-2 border-gray-900"
                                         src="assests/{{ $user->profile_picture }}" alt="">
                                     <div class="absolute"></div>
@@ -31,11 +31,95 @@
                         </div>
                         <!-- Follow Button -->
                         <div class="flex flex-col text-right">
-                            {{-- <button data-modal-target="#my_modal"
+                            <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
                                 class="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
                                 Edit Profile
-                            </button> --}}
+                            </button>
+                        </div>
+                        <div id="default-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Edit Profile
+                                        </h3>
+                                        <button type="button"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-toggle="default-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <form class="update-profile p-4 md:p-5" data-id="{{ $user->id }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="grid gap-4 mb-4 grid-cols-2">
+                                            <div class="col-span-2">
+                                                <label for="username"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                                <input type="text" name="username" id="username"
+                                                    value="{{ $user->username }}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Username" readonly>
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label for="fullName"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
+                                                    Name</label>
+                                                <input type="text" name="fullName" id="fullName"
+                                                    value = "{{ $user->fullName }}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Full Name" required>
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label for="bio"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bio</label>
+                                                <textarea id="bio" rows="4" name="bio"
+                                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Bio"></textarea>
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label for="profile_link"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile
+                                                    Link</label>
+                                                <input type="text" name="profile_link" id="profile_link"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Profile Link" required>
+                                            </div>
+                                            <div class="col-span-2">
+                                                <label for="profile_image"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile
+                                                    Image</label>
+                                                <input type="file" name="profile_picture" id="profile_picture"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
 
+                                            </div>
+                                            <input type="hidden" name="_method" value="PUT">
+
+
+                                        </div>
+                                        <button type="submit"
+                                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Update Profile
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -43,7 +127,7 @@
                     <div class="space-y-1 justify-center w-full mt-3 ml-3">
                         <!-- User basic-->
                         <div>
-                            <h2 class="text-xl leading-6 font-bold ">
+                            <h2 id="profile-fullName" class="text-xl leading-6 font-bold ">
                                 {{ $user->fullName ?? 'Full Name' }}
                             </h2>
                             <p class="text-sm leading-5 font-medium ">
@@ -52,8 +136,7 @@
                         </div>
                         <!-- Description and others -->
                         <div class="mt-3">
-                            <p class=" leading-tight mb-2">Software Engineer / Designer / Entrepreneur <br>Visit
-                                my website to test a working <b>Twitter Clone.</b> </p>
+                            <h2 class=" leading-tight mb-2" id="profile-bio">Hello</h2>
                             <div class="text-gray-600 flex">
                                 <span class="flex mr-2"><svg viewBox="0 0 24 24" class="h-5 w-5 paint-icon">
                                         <g>
@@ -64,8 +147,8 @@
                                                 d="M7.27 22.054c-1.61 0-3.197-.735-4.225-2.125-.832-1.127-1.176-2.51-.968-3.894s.943-2.605 2.07-3.438l1.478-1.094c.334-.245.805-.175 1.05.158s.177.804-.157 1.05l-1.48 1.095c-.803.593-1.326 1.464-1.475 2.45-.148.99.097 1.975.69 2.778 1.225 1.657 3.57 2.01 5.23.785l3.528-2.608c1.658-1.225 2.01-3.57.785-5.23-.498-.674-1.187-1.15-1.992-1.376-.4-.113-.633-.527-.52-.927.112-.4.528-.63.926-.522 1.13.318 2.096.986 2.794 1.932 1.717 2.324 1.224 5.612-1.1 7.33l-3.53 2.608c-.933.693-2.023 1.026-3.105 1.026z">
                                             </path>
                                         </g>
-                                    </svg> <a href="https://ricardoribeirodev.com/personal/" target="#"
-                                        class="leading-5 ml-1 text-blue-400">www.RicardoRibeiroDEV.com</a></span>
+                                    </svg> <a id="profile-profile_link" href="http://127.0.0.1:8000/profile"
+                                        target="#" class="leading-5 ml-1 text-blue-400">www.socialMedia.com</a></span>
                                 <span class="flex mr-2"><svg viewBox="0 0 24 24" class="h-5 w-5 paint-icon">
                                         <g>
                                             <path
@@ -88,7 +171,8 @@
                         <div class="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
                             <div class="text-center pr-3"><span class="font-bold ">520</span><span class="text-gray-600">
                                     Following</span></div>
-                            <div class="text-center px-3"><span class="font-bold ">23,4m </span><span class="text-gray-600">
+                            <div class="text-center px-3"><span class="font-bold ">23,4m </span><span
+                                    class="text-gray-600">
                                     Followers</span></div>
                         </div>
                     </div>
@@ -146,8 +230,8 @@
                                                     @click.away="isOpen = false; isDeleting = false; isEditing = false"
                                                     @keydown.escape.window="isOpen = false; isDeleting = false; isEditing = false"
                                                     class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
-                                                    tabindex="-1">
+                                                    role="menu" aria-orientation="vertical"
+                                                    aria-labelledby="menu-button" tabindex="-1">
                                                     <div class="py-2" role="none">
                                                         <!-- Delete Button -->
                                                         <button
@@ -447,7 +531,7 @@
                 var postId = $(this).data('id');
                 var token = '{{ csrf_token() }}';
 
-                
+
                 $.ajax({
                     url: base_url + "posts/" + postId,
                     type: 'DELETE',
@@ -457,7 +541,7 @@
                     },
                     success: function(response) {
                         // alert(response.success);
-                        
+
 
                         // Optionally, remove the deleted post from the DOM or refresh the list of posts
                         // Example: $('#post-' + postId).remove();
@@ -498,6 +582,42 @@
                         console.error('Error:', error);
                     }
                 });
+            });
+
+            $('.update-profile').submit(function(event) {
+
+                event.preventDefault();
+
+                var formData = new FormData(this);
+                var userId = $(this).data('id');
+
+                // console.log('hello', userId, formData);
+                $.ajax({
+                    url: base_url + "profile/" + userId,
+                    type: 'POST', // Use POST method
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+
+                        console.log(data);
+                        $('#profile-fullName').text(data.user.fullName);
+                        $('#profile-bio').text(data.user.bio);
+                        $('#profile-profile_link').attr('href', data.user.profile_link);
+                        $('#profile-profile_link').text(data.user.profile_link);
+                        $('#profile-image').attr('src', 'assests/' + data.user.profile_picture);
+
+                        $('[data-modal-toggle="default-modal"]').click();
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+
             });
 
         });
