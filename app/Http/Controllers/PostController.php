@@ -101,7 +101,33 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'post_data' => 'required|string|max:255',
+            'post_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $post = Post::findOrFail($id);
+        // return $post;
+        $post->descrip = $request->input('post_data');
+
+        if ($request->hasFile('post_img')) {
+            $file = $request->file('post_img');
+
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('assests/posts'), $fileName);
+            $post->post_image = $fileName;
+        }
+
+
+
+
+        $post->save();
+        // $post->update($request->all());
+
+
+
+        return response()->json(['success' => true, 'post' => $post]);
     }
 
     /**
@@ -109,6 +135,10 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        // return "Hrllo";
+        $post = Post::find($id);
+        // return $post;
+
+        $post->delete();
+        return response()->json(['success' => true]);
     }
 }

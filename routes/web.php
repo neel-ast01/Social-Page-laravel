@@ -28,10 +28,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
     Route::resource('profile', ProfileController::class);
+
     Route::resource('posts', PostController::class);
+    
+    
 
     Route::get('/like', [LikeController::class, 'like'])->name('get.like');
     Route::post('/like', [LikeController::class, 'like'])->name('post.like');
 
-    
+
 });
