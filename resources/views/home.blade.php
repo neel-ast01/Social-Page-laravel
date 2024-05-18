@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                        post</button> -->
+                                                                                                                                                                                                                                        post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -173,17 +173,20 @@
                                 console.log(response);
                                 if (response.success) {
                                     var post = response.post;
-                                    // console.log(post);
+                                    // var user = response.post.user;
+                                    var user = response.user;
+                                    // console.log(response.user);
+                                    // console.log(response.post.user);
                                     // var imagePath = "assets/posts/" + post.post_image;
                                     var newPost = `
                         <div class="flex w-full p-8 border-b border-gray-300 ">
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
-                                src="/assests/{{ $post->user->profile_picture }}"></img>
+                                src="/assests/${ user.profile_picture }"></img>
                             <div class="flex flex-col flex-grow ml-4">
                                 <div class="flex">
-                                    <span class="font-semibold">{{ $post->user->fullName }}</span>
+                                    <span class="font-semibold">${ user.fullName }</span>
                                     <span class="ml-1">
-                                        {{ $post->user->username }}
+                                        ${user.username }
                                     </span>
                                     <span class="ml-auto text-sm">${ post.created_at }</span>
                                 </div>
@@ -214,15 +217,16 @@
                                         14 k
                                     </button>
                                     <button
-                                        class="flex-1 flex items-center text-xs text-gray-400 hover:text-red-600 transition duration-350 ease-in-out">
-                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 ">
+                                        class="like-button flex-1 flex items-center text-xs text-gray-400 hover:text-red-600 transition duration-350 ease-in-out {{ in_array($user->id, $post->likes->pluck('user_id')->toArray()) ? 'text-red-600' : '' }}"
+                                        data-id="{{ $post->id }}">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                             <g>
                                                 <path
                                                     d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
                                                 </path>
                                             </g>
                                         </svg>
-                                        <span class="likes_count">100 likes</span>
+                                        <span class="likes_count">{{ $post->likes->count() }} likes</span>
                                     </button>
                                     <button
                                         class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out">
@@ -244,6 +248,32 @@
                                     $("div.posts").prepend(newPost);
                                     // Reset the form
                                     $("#postForm")[0].reset();
+
+                                    $(".like-button").on("click", function(e) {
+                                        console.log('here');
+                                        e.preventDefault();
+                                        var postid = $(this).data("id");
+                                        var $button = $(this);
+
+                                        $.ajax({
+                                            url: "{{ route('post.like') }}",
+                                            type: "post",
+                                            data: {
+                                                postid: postid,
+                                                _token: '{{ csrf_token() }}'
+                                            },
+                                            success: function(response) {
+                                                console.log(response);
+                                                if (response.success) {
+                                                    $button
+                                                        .toggleClass("text-red-600")
+                                                        .find("span.likes_count")
+                                                        .text(response.likeCount + " likes");
+                                                }
+                                            }
+
+                                        });
+                                    });
                                 } else {
                                     alert("Post Add Erorr");
                                 }

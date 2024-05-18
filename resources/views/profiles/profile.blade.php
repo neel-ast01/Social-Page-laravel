@@ -447,7 +447,7 @@
                 var postId = $(this).data('id');
                 var token = '{{ csrf_token() }}';
 
-                console.log('asdasd asd');
+                
                 $.ajax({
                     url: base_url + "posts/" + postId,
                     type: 'DELETE',
@@ -456,7 +456,8 @@
                         'id': postId
                     },
                     success: function(response) {
-                        alert(response.success);
+                        // alert(response.success);
+                        
 
                         // Optionally, remove the deleted post from the DOM or refresh the list of posts
                         // Example: $('#post-' + postId).remove();
@@ -485,7 +486,7 @@
                     },
                     success: function(data) {
 
-                        console.log(data);
+                        // console.log(data);
                         $('#post-description').text(data.post.descrip);
                         $('#post-image').attr('src', 'assests/posts/' + data
                             .post.post_image);

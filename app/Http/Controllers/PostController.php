@@ -73,7 +73,9 @@ class PostController extends Controller
 
             $post->user_id = auth()->user()->id;
             $post->save();
-            return response()->json(['success' => true, 'post' => $post]);
+            $user = $post->user;
+            // return $post;
+            return response()->json(['success' => true, 'post' => $post, 'user' => $user]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response()->json(['success' => false]);
