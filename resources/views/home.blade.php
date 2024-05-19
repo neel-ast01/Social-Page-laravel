@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                        post</button> -->
+                                                                                                                                                                                                                                                                                                                                        post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -43,7 +43,7 @@
 
                 <div class="posts">
                     @foreach ($posts as $post)
-                        <div class="flex w-full p-8 border-b border-gray-300 ">
+                        <div class="post flex w-full p-8 border-b border-gray-300" data-post-id="{{ $post->id }}">
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
                                 src="\assests\{{ $post->user->profile_picture }}"></img>
                             <div class="flex flex-col flex-grow ml-4">
@@ -108,6 +108,42 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <hr class="mt-2 mb-2 ">
+                                <p class="text-gray-800 font-semibold">Comment</p>
+                                <hr class="mt-2 mb-2">
+                                <div class="mt-4">
+                                    <div class="comments" id="comments-{{ $post->id }}">
+                                        @foreach ($post->comments as $comment)
+                                            <div class="flex items-center space-x-2" data-id="{{ $comment->id }}">
+                                                <img src="\assests\{{ $comment->user->profile_picture }}" alt="User Avatar"
+                                                    class="w-6 h-6 rounded-full">
+                                                <div>
+                                                    <p class="text-gray-800 font-semibold">{{ $comment->user->fullName }}
+                                                    </p>
+                                                    <p class="text-gray-500 text-sm">{{ $comment->content }}</p>
+                                                    <a href="#" class="reply-button text-blue-500">Reply</a>
+                                                </div>
+                                            </div>
+                                            @foreach ($comment->replies as $reply)
+                                                <div class="flex items-center space-x-2 mt-2 ml-6"
+                                                    data-id="{{ $reply->id }}">
+                                                    <img src="\assests\{{ $reply->user->profile_picture }}"
+                                                        alt="User Avatar" class="w-6 h-6 rounded-full">
+                                                    <div>
+                                                        <p class="text-gray-800 font-semibold">{{ $reply->user->fullName }}
+                                                        </p>
+                                                        <p class="text-gray-500 text-sm">{{ $reply->content }}</p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endforeach
+                                    </div>
+                                    <form class="comment-form" data-post-id="{{ $post->id }}">
+                                        <textarea name="content" required class="border p-2 w-full"></textarea>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     @endforeach
@@ -357,6 +393,97 @@
                             }
 
                         });
+                    });
+
+                    $(document).ready(function() {
+                        $(document).on('submit', '.comment-form', function(e) {
+                            e.preventDefault();
+                            var form = $(this);
+                            var postId = form.data('post-id');
+                            var content = form.find('textarea[name="content"]').val();
+                            var token = '{{ csrf_token() }}';
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ route('comments.store') }}',
+                                data: {
+                                    post_id: postId,
+                                    content: content,
+                                    _token: token
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    var newComment = `
+                <div class="flex items-center space-x-2 mt-2" data-id="${response.id}">
+                    <img src="/assests/${response.user.profile_picture}" alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <div>
+                        <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
+                        <p class="text-gray-500 text-sm">${response.content}</p>
+                        <a href="#" class="reply-button text-blue-500">Reply</a>
+                    </div>
+                </div>`;
+                                    $('#comments-' + postId).append(newComment);
+                                    form.find('textarea[name="content"]').val('');
+                                },
+                                error: function(response) {
+                                    alert('Error submitting comment: ' + response.responseJSON.error);
+                                }
+                            });
+                        });
+
+
+
+
+                        $(document).on('click', '.reply-button', function(e) {
+                            e.preventDefault();
+                            var parent = $(this).closest('.flex');
+                            var parentId = parent.data('id');
+                            var replyForm = `
+        <form class="reply-form mt-2 ml-6" data-parent-id="${parentId}">
+            <textarea name="content" required class="border p-2 w-full"></textarea>
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
+        </form>`;
+                            parent.append(replyForm);
+                        });
+
+                        $(document).on('submit', '.reply-form', function(e) {
+                            e.preventDefault();
+                            var form = $(this);
+                            var postId = form.find('input[name="post_id"]').val();
+                            var parentId = form.data('parent-id');
+                            var content = form.find('textarea[name="content"]').val();
+                            var token = '{{ csrf_token() }}';
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ route('comments.store') }}',
+                                data: {
+                                    post_id: postId,
+                                    parent_id: parentId,
+                                    content: content,
+                                    _token: token
+                                },
+                                success: function(response) {
+                                    var newReply = `
+                <div class="flex items-center space-x-2 mt-2 ml-6" data-id="${response.id}">
+                    <img src="/assests/${response.user.profile_picture}" alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <div>
+                        <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
+                        <p class="text-gray-500 text-sm">${response.content}</p>
+                    </div>
+                </div>`;
+                                    form.closest('.flex').append(newReply);
+                                    form.remove();
+                                },
+                                error: function(response) {
+                                    alert('Error submitting reply: ' + response.responseJSON.error);
+                                }
+                            });
+                        });
+
+
+
                     });
                 </script>
             </div>
