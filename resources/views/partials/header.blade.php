@@ -16,12 +16,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.5.1/flowbite.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.5.1/flowbite.min.js"></script>
+
+
 <!-- jQuery -->
 <script type="text/javascript">
     var base_url = {!! "'" . URL::to('/') . "/'" !!};
     var csrf_token = "{{ csrf_token() }}";
 </script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+{{-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 {{-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script> --}}
 {{-- <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
