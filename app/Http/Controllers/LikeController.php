@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Notification;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,17 @@ class LikeController extends Controller
             } else {
 
                 Like::create(['user_id' => $user->id, 'post_id' => $postId]);
+
+                // Get the post owner
+                $post = Post::findOrFail($postId);
+                $postOwner = $post->user;
+
+                // Create a notification for the post owner
+                Notification::create([
+                    'user_id' => $postOwner->id,
+                    'post_id' => $postId,
+                    'type' => 'like'
+                ]);
             }
 
 

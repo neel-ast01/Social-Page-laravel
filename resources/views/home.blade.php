@@ -211,6 +211,7 @@
                                     var post = response.post;
                                     // var user = response.post.user;
                                     var user = response.user;
+                                    console.log(response);
                                     // console.log(response.user);
                                     // console.log(response.post.user);
                                     // var imagePath = "assets/posts/" + post.post_image;

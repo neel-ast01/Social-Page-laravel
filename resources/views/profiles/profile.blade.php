@@ -759,7 +759,7 @@
 
 
 
-                                    <div class="flex items-center py-4">
+                                    {{-- <div class="flex items-center py-4">
                                         <div
                                             class="flex-1 flex items-center  text-xs  hover:text-blue-400 transition duration-350 ease-in-out">
                                             <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -846,8 +846,9 @@
                                             </div>
                                         </div>
                                         <!-- Add more comments and replies as needed -->
-                                    </div>
+                                    </div> --}}
                                 </div>
+                                <div class="mt-3"></div>
                                 <hr class="border-gray-800">
                             </article>
                         </li>

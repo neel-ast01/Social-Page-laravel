@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         $user = Auth::user();
-        $posts = $user->posts;
+        $notifications = Notification::with('user', 'post')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         $friends = User::where('id', '!=', Auth::id())->take(5)->get();
-        // return $user;
-        // return view('profiles.profile');
-        return view('profiles.profile', compact('user', 'posts','friends'));
+        return view('notification.notification', compact('friends', 'notifications'));
+        // return $notifications;
     }
 
     /**
@@ -58,25 +63,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail($id);
-
-        // dd($request);
-        $user->fullName = $request->input('fullName');
-        $user->bio = $request->input('bio');
-        $user->profile_link = $request->input('profile_link');
-
-        if ($request->hasFile('profile_picture')) {
-            // Upload new profile picture
-            $profilePicture = $request->file('profile_picture');
-
-            $originalName = $profilePicture->getClientOriginalName();
-            $profilePicture->move(public_path('assests'), $originalName);
-            $user->profile_picture = $originalName;
-        }
-
-        $user->save();
-
-        return response()->json(['success' => true, 'user' => $user]);
+        //
     }
 
     /**

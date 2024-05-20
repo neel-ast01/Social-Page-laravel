@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,18 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $posts = Post::with('user')->orderBy('created_at', 'desc')->get();
-        return view('home', compact('posts', 'user'));
+
+
+        // $friends = Auth::user()->follows;
+        $friends = User::where('id', '!=', Auth::id())
+            ->whereDoesntHave('followers', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->get();
+
+        // return view('index', compact('potentialFriends', 'friends'));
+        // $friends = User::where('id', '!=', Auth::id())->take(5)->get();
+        return view('home', compact('posts', 'user', 'friends'));
         // return $posts;
     }
 
@@ -75,6 +87,7 @@ class PostController extends Controller
             $post->save();
             $user = $post->user;
             // return $post;
+
             return response()->json(['success' => true, 'post' => $post, 'user' => $user]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
