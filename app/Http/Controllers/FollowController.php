@@ -25,4 +25,21 @@ class FollowController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
+
+    public function unfollow(Request $request)
+    {
+        try {
+            $userToUnfollow = User::findOrFail($request->user_id);
+
+            // Check if the authenticated user is following the user to unfollow
+            if (Auth::user()->isFollowing($userToUnfollow)) {
+                // If following, unfollow the user
+                Auth::user()->unfollow($userToUnfollow);
+
+                return response()->json(['status' => 'success', 'message' => 'User unfollowed successfully', 'user' => $userToUnfollow]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
 }

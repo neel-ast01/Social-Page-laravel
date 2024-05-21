@@ -12,8 +12,9 @@ class CommentObserver
      */
     public function created(Comment $comment): void
     {
+        $user = $comment->user; // Retrieve the user who commented on the post
         Notification::create([
-            'user_id' => $comment->post->user_id,
+            'user_id' => $user->id,
             'post_id' => $comment->post_id,
             'type' => 'comment',
         ]);

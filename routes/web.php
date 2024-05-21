@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\FriendListController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LoginController;
@@ -45,6 +47,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('notifications', NotificationController::class);
 
     Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+
+    Route::post('/archive', [ArchiveController::class, 'archive'])->name('archive');
+
+    Route::get('/archived-posts', [ArchiveController::class, 'index'])->name('archived-posts.index');
+    Route::post('/showHidePost', [ArchiveController::class, 'showHidePost'])->name('showHidePost');
+
+    // Route::get('/hidden-posts', 'Controller@showHiddenPosts')->name('hidden.posts');
+    // Route::get('/hidden-posts', [ArchiveController::class, 'showHiddenPosts'])->name('hidden.posts');
 
     // Route::post('/user/follow', 'FollowController@follow')->name('user.follow');
     // Route::post('/user/unfollow', 'FollowController@unfollow')->name('user.unfollow');

@@ -15,15 +15,19 @@ class NotificationController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
+        $userId = Auth::id();
+
+        // Retrieve notifications for posts owned by the authenticated user
         $notifications = Notification::with('user', 'post')
-            ->where('user_id', $user->id)
+            ->whereHas('post', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->where('type', 'like') // Only consider notifications for likes
             ->orderBy('created_at', 'desc')
             ->get();
-
-        $friends = User::where('id', '!=', Auth::id())->take(5)->get();
-        return view('notification.notification', compact('friends', 'notifications'));
         // return $notifications;
+        // $friends = User::where('id', '!=', Auth::id())->take(5)->get();
+        return view('notification.notification', compact('notifications'));
     }
 
     /**

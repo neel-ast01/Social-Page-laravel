@@ -15,26 +15,23 @@ class LikeController extends Controller
         try {
 
             $postId = $request->input('postid');
-
             $user = Auth::user();
-
 
             $like = Like::where('user_id', $user->id)->where('post_id', $postId)->first();
 
             if ($like) {
-
                 $like->delete();
             } else {
-
                 Like::create(['user_id' => $user->id, 'post_id' => $postId]);
 
                 // Get the post owner
                 $post = Post::findOrFail($postId);
-                $postOwner = $post->user;
+                $user_id = Auth::user();
+
 
                 // Create a notification for the post owner
                 Notification::create([
-                    'user_id' => $postOwner->id,
+                    'user_id' => $user_id->id,
                     'post_id' => $postId,
                     'type' => 'like'
                 ]);

@@ -34,7 +34,14 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    
+
+
+
+    public function isFollowing(User $user)
+    {
+        return $this->follows()->where('followed_user_id', $user->id)->exists();
+    }
+
     public function follow(User $user)
     {
         if (!$this->isFollowing($user)) {
@@ -42,9 +49,11 @@ class User extends Authenticatable
         }
     }
 
-    public function isFollowing(User $user)
+    public function unfollow(User $user)
     {
-        return $this->follows()->where('followed_user_id', $user->id)->exists();
+        if ($this->isFollowing($user)) {
+            $this->follows()->detach($user->id);
+        }
     }
 
     public function follows()

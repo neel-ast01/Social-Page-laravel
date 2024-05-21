@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -731,8 +731,8 @@
                                                                 class="px-4 py-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                                 No, cancel
                                                             </button>
-                                                            <button type="button"
-                                                                class="px-4 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                            <button type="button" data-id="{{ $post->id }}"
+                                                                class="delete-post-button px-4 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                                 Yes, I'm sure
                                                             </button>
                                                         </div>
@@ -862,7 +862,8 @@
             $('.delete-post-button').on('click', function() {
                 var postId = $(this).data('id');
                 var token = '{{ csrf_token() }}';
-
+                var modal = $(this).closest('#deleteModal');
+                var backdrop = $('.modal-backdrop'); // Assuming the backdrop has the class 'modal-backdrop'
 
                 $.ajax({
                     url: base_url + "posts/" + postId,
@@ -874,12 +875,12 @@
                     success: function(response) {
                         if (response.status == 'success') {
                             $('#post-' + postId).remove();
+                            modal.addClass('hidden');
+                            backdrop.addClass('hidden'); // Hide the backdrop
                             alert(response.message);
                         } else {
                             alert(response.message);
                         }
-                        // Optionally, remove the deleted post from the DOM or refresh the list of posts
-                        // Example: $('#post-' + postId).remove();
                     },
                     error: function(xhr) {
                         alert('Error: ' + xhr.responseText);

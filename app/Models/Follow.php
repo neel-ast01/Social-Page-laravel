@@ -16,4 +16,10 @@ class Follow extends Model
     {
         return $this->belongsTo(Follow::class);
     }
+
+    public function unfollow(User $userToUnfollow)
+    {
+        // Detach the provided user to unfollow from the list of followed users
+        $this->following()->detach($userToUnfollow->id);
+    }
 }

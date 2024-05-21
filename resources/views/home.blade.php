@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                        post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -69,17 +69,7 @@
                                         </svg>
                                         12.3 k
                                     </button>
-                                    <button
-                                        class="flex-1 flex items-center text-xs text-gray-400 hover:text-green-400 transition duration-350 ease-in-out">
-                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                            <g>
-                                                <path
-                                                    d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        14 k
-                                    </button>
+
 
                                     <button
                                         class="like-button flex-1 flex items-center text-xs text-gray-400 hover:text-red-600 transition duration-350 ease-in-out {{ in_array($user->id, $post->likes->pluck('user_id')->toArray()) ? 'text-red-600' : '' }}"
@@ -93,20 +83,22 @@
                                         </svg>
                                         <span class="likes_count">{{ $post->likes->count() }} likes</span>
                                     </button>
+                                    @if ($post->user->id === $user->id)
+                                        <button class="savePostButton" data-id="{{ $post->id }}"
+                                            class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
+                                        @if ($post->is_archive) text-blue-600 @endif">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                                            </svg>
+                                        </button>
+                                    @else
+                                    @endif
 
-                                    <button
-                                        class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out">
-                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                            <g>
-                                                <path
-                                                    d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                                                </path>
-                                                <path
-                                                    d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                    </button>
+
+
+
                                 </div>
                                 <hr class="mt-2 mb-2 ">
                                 <p class="text-gray-800 font-semibold">Comment</p>
@@ -395,6 +387,35 @@
 
                         });
                     });
+
+                    $(".savePostButton").on("click", function(e) {
+                        e.preventDefault();
+                        var postid = $(this).data("id");
+                        var $button = $(this);
+                        $.ajax({
+                            url: "{{ route('archive') }}",
+                            type: "post",
+                            data: {
+                                postid: postid,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    console.log('Archive status toggled successfully', response.success);
+                                    // Hide the parent post element
+                                    $button.closest('.post').hide();
+                                } else {
+                                    console.error('Error toggling archive status:', response.message);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error toggling archive status:', error);
+                            }
+                        });
+                    });
+
+
+
 
                     $(document).ready(function() {
                         $(document).on('submit', '.comment-form', function(e) {

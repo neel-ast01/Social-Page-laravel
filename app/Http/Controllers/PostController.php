@@ -18,20 +18,26 @@ class PostController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $posts = Post::with('user')->orderBy('created_at', 'desc')->get();
+        $posts = Post::with('user')
+            ->where('is_archive', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
 
 
         // $friends = Auth::user()->follows;
-        $friends = User::where('id', '!=', Auth::id())
-            ->whereDoesntHave('followers', function ($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->get();
+        // $friends = User::where('id', '!=', Auth::id())
+        // ->whereDoesntHave('followers', function ($query) {
+        // $query->where('user_id', Auth::id());
+        // })
+        // ->get();
 
         // return view('index', compact('potentialFriends', 'friends'));
-        // $friends = User::where('id', '!=', Auth::id())->take(5)->get();
-        return view('home', compact('posts', 'user', 'friends'));
-        // return $posts;
+        // $friends = User::where('id', '!=', Auth::id())->whereDoesntHave('followers', function ($query) {
+        //     $query->where('user_id', Auth::id());
+        // })->get();
+        return view('home', compact('posts', 'user'));
+        // return $friends;
     }
 
     /**
