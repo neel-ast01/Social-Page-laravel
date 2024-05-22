@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
             $friends = User::where('id', '!=', Auth::id())
                 ->whereDoesntHave('followers', function ($query) {
-                    $query->where('user_id', Auth::id());
+                    $query->where('follower_id', Auth::id());
                 })
                 ->get();
 

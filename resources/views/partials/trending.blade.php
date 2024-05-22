@@ -42,12 +42,10 @@
                             <span class="text-sm text-gray-500">@ {{ $user->username }}</span>
                         </div>
                         <div>
-                            @if (auth()->user()->isFollowing($user))
-                                <button class="btn btn-secondary removeFriend-btn"
-                                    data-id="{{ $user->id }}">Unfollow</button>
+                            @if (Auth::user()->followings->contains($user))
+                                <button class="removeFriend-btn" data-id="{{ $user->id }}">Unfollow</button>
                             @else
-                                <button class="btn btn-primary addFrind-btn"
-                                    data-id="{{ $user->id }}">Follow</button>
+                                <button class="addFrind-btn" data-id="{{ $user->id }}">Follow</button>
                             @endif
                         </div>
                     </div>
@@ -109,27 +107,23 @@
 
 <script>
     $(document).ready(function() {
-        $('.follow-btn').on('click', function() {
+        // Use event delegation to handle click events for both buttons
+        $(document).on('click', '.addFrind-btn', function() {
             var button = $(this);
             var userId = button.data('id');
 
             console.log('Follow button clicked for user ID:', userId);
 
             $.ajax({
-                url: '{{ route('follow') }}',
+                url: '{{ route('follow', '') }}/' + userId,
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    user_id: userId
                 },
                 success: function(response) {
                     console.log('Follow response:', response);
-                    if (response.status === 'success') {
-                        // Remove the friend from the list
-                        button.closest('.flex').remove();
-                    } else {
-                        alert(response.message);
-                    }
+                    button.text('Unfollow');
+                    button.removeClass('addFrind-btn').addClass('removeFriend-btn');
                 },
                 error: function(xhr, status, error) {
                     console.error('Follow error:', status, error);
@@ -138,66 +132,29 @@
             });
         });
 
-        $('.addFrind-btn').on('click', function() {
+        $(document).on('click', '.removeFriend-btn', function() {
             var button = $(this);
             var userId = button.data('id');
 
-            console.log('Follow button clicked for user ID:', userId);
+            console.log('UnFollow button clicked for user ID:', userId);
 
             $.ajax({
-                url: '{{ route('follow') }}',
+                url: '{{ route('unfollow', '') }}/' + userId,
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    user_id: userId
                 },
                 success: function(response) {
-                    console.log('Follow response:', response);
-                    if (response.status === 'success') {
-                        // Remove the friend from the list
-                        // button.closest('.flex').remove();
-                        button.text('Unfollow');
-                        button.removeClass('addFrind-btn').addClass('removeFriend-btn');
-                    } else {
-                        alert(response.message);
-                    }
+                    console.log('unFollow response:', response);
+                    button.text('Follow');
+                    button.removeClass('removeFriend-btn').addClass('addFrind-btn');
                 },
                 error: function(xhr, status, error) {
-                    console.error('Follow error:', status, error);
-                    alert('An error occurred while following the user.');
+                    console.error('Unfollow error:', status, error);
+                    alert('An error occurred while unfollowing the user.');
                 }
             });
         });
 
-        $('.removeFriend-btn').on('click', function() {
-            var button = $(this);
-            var userId = button.data('id');
-
-            console.log('Follow button clicked for user ID:', userId);
-
-            $.ajax({
-                url: '{{ route('unfollow') }}',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    user_id: userId
-                },
-                success: function(response) {
-                    console.log('Follow response:', response);
-                    if (response.status === 'success') {
-                        // Remove the friend from the list
-                        // button.closest('.flex').remove();
-                        button.text('Follow');
-                        button.removeClass('removeFriend-btn').addClass('addFrind-btn');
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Follow error:', status, error);
-                    alert('An error occurred while following the user.');
-                }
-            });
-        });
     });
 </script>

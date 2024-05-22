@@ -46,8 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('comments', CommentController::class);
     Route::resource('notifications', NotificationController::class);
 
-    Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
-    Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
 
     Route::post('/archive', [ArchiveController::class, 'archive'])->name('archive');
 

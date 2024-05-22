@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -107,7 +107,7 @@
 
 
                                         </div>
-                                        <button type="submit"
+                                        <button type="submit" data-modal-toggle="default-modal"
                                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -415,7 +415,7 @@
 
 
                                         {{-- THIS 12:32 UPDATE --}}
-                                        <div class="ml-[270px]">
+                                        {{-- <div class="ml-[270px]">
                                             <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" x-init="isDeleting = false;
                                             isEditing = false"
                                                 class="relative inline-block text-left">
@@ -620,11 +620,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
                                         {{-- DropDown Button --}}
-                                        {{-- <div class="ml-[270px]">
+                                        <div class="ml-[270px]">
                                             <div class="relative inline-block text-left">
                                                 <button id="dropdownButton" data-dropdown-toggle="dropdown"
                                                     class="inline-flex justify-center items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none bg-gray-100 rounded-lg"
@@ -652,7 +652,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                         <!-- Update Modal -->
                                         <div id="updateModal" tabindex="-1" aria-hidden="true"
@@ -862,8 +862,9 @@
             $('.delete-post-button').on('click', function() {
                 var postId = $(this).data('id');
                 var token = '{{ csrf_token() }}';
-                var modal = $(this).closest('#deleteModal');
-                var backdrop = $('.modal-backdrop'); // Assuming the backdrop has the class 'modal-backdrop'
+
+                // var modal = $(this).closest('#deleteModal');
+                // var backdrop = $('.modal-backdrop'); // Assuming the backdrop has the class 'modal-backdrop'
 
                 $.ajax({
                     url: base_url + "posts/" + postId,
@@ -875,9 +876,13 @@
                     success: function(response) {
                         if (response.status == 'success') {
                             $('#post-' + postId).remove();
-                            modal.addClass('hidden');
-                            backdrop.addClass('hidden'); // Hide the backdrop
-                            alert(response.message);
+                            $('#deleteModal').addClass('hidden');
+                            const modal = $('#deleteModal');
+                            modal.hide();
+                            $('.flowbite-backdrop').hide();
+                            //   modal.addClass('hidden');
+                            //   backdrop.addClass('hidden'); // Hide the backdrop
+                            // alert(response.message);
                         } else {
                             alert(response.message);
                         }
@@ -977,7 +982,7 @@
                         $('#profile-profile_link').text(data.user.profile_link);
                         $('#profile-image').attr('src', 'assests/' + data.user.profile_picture);
 
-                        $('[data-modal-toggle="default-modal"]').click();
+                        alert("Profile is Sucessfull Update");
 
                     },
                     error: function(xhr, status, error) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,7 @@ class CommentController extends Controller
             ]);
             $comment->save();
 
+          
             return response()->json($comment->load('user'));
         } catch (\Exception $e) {
             Log::error('Error storing comment: ' . $e->getMessage());

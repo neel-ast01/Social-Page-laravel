@@ -24,17 +24,6 @@ class LikeController extends Controller
             } else {
                 Like::create(['user_id' => $user->id, 'post_id' => $postId]);
 
-                // Get the post owner
-                $post = Post::findOrFail($postId);
-                $user_id = Auth::user();
-
-
-                // Create a notification for the post owner
-                Notification::create([
-                    'user_id' => $user_id->id,
-                    'post_id' => $postId,
-                    'type' => 'like'
-                ]);
             }
 
 

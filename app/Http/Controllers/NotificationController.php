@@ -22,7 +22,6 @@ class NotificationController extends Controller
             ->whereHas('post', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
-            ->where('type', 'like') // Only consider notifications for likes
             ->orderBy('created_at', 'desc')
             ->get();
         // return $notifications;
