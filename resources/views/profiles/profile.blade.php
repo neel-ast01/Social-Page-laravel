@@ -415,7 +415,7 @@
 
 
                                         {{-- THIS 12:32 UPDATE --}}
-                                        {{-- <div class="ml-[270px]">
+                                        <div class="ml-[270px]">
                                             <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" x-init="isDeleting = false;
                                             isEditing = false"
                                                 class="relative inline-block text-left">
@@ -620,11 +620,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div>
 
 
                                         {{-- DropDown Button --}}
-                                        <div class="ml-[270px]">
+                                        {{-- <div class="ml-[270px]">
                                             <div class="relative inline-block text-left">
                                                 <button id="dropdownButton" data-dropdown-toggle="dropdown"
                                                     class="inline-flex justify-center items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none bg-gray-100 rounded-lg"
@@ -652,7 +652,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Update Modal -->
                                         <div id="updateModal" tabindex="-1" aria-hidden="true"

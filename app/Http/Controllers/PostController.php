@@ -22,22 +22,8 @@ class PostController extends Controller
             ->where('is_archive', 0)
             ->orderBy('created_at', 'desc')
             ->get();
-
-
-
-        // $friends = Auth::user()->follows;
-        // $friends = User::where('id', '!=', Auth::id())
-        // ->whereDoesntHave('followers', function ($query) {
-        // $query->where('user_id', Auth::id());
-        // })
-        // ->get();
-
-        // return view('index', compact('potentialFriends', 'friends'));
-        // $friends = User::where('id', '!=', Auth::id())->whereDoesntHave('followers', function ($query) {
-        //     $query->where('user_id', Auth::id());
-        // })->get();
+            // return $posts->comments;
         return view('home', compact('posts', 'user'));
-        // return $friends;
     }
 
     /**

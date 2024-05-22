@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                    post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -116,7 +116,7 @@
                                                     <a href="#" class="reply-button text-blue-500">Reply</a>
                                                 </div>
                                             </div>
-                                            @foreach ($comment->replies as $reply)
+                                            @foreach ($comment->replies->reverse() as $reply)
                                                 <div class="flex items-center space-x-2 mt-2 ml-6"
                                                     data-id="{{ $reply->id }}">
                                                     <img src="\assests\{{ $reply->user->profile_picture }}"
@@ -156,37 +156,6 @@
                     }
                 </style>
 
-                {{-- <style>
-                            .red-like-button {
-                                color: red;
-                            }
-                        </style> --}}
-                {{-- <script>
-                    $(document).ready(function() {
-                        $('.like-button').on('click', function() {
-                            var postId = $(this).data('post-id');
-                            var likeCount = $(this).find('.likes-count');
-                            var button = $(this);
-
-                            $.ajax({
-                                type: 'POST',
-                                url: '/posts/likes',
-                                data: {
-                                    postId: postId
-                                },
-                                success: function(response) {
-                                    likeCount.text(response);
-                                    button.addClass('red-like-button'); // Add class to change color to red
-                                },
-                                error: function(xhr, textStatus, errorThrown) {
-                                    console.log(xhr.responseText);
-                                    console.log(textStatus);
-                                    console.log(errorThrown);
-                                }
-                            });
-                        });
-                    });
-                </script> --}}
                 <script>
                     $("#postForm").submit(function(e) {
                         e.preventDefault(); // Prevent the form from submitting
@@ -247,8 +216,8 @@
                                         </svg>
                                         <span class="likes_count">{{ $post->likes->count() }} likes</span>
                                     </button>`;
-                                    if (post.user.id==user.id){
-                                      newPost+=  `
+                                    if (post.user.id == user.id) {
+                                        newPost += `
                                         <button class="savePostButton" data-id="{{ $post->id }}"
                                             class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
                                         @if ($post->is_archive) text-blue-600 @endif">
@@ -258,9 +227,10 @@
                                                     d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
                                             </svg>
                                         </button>`;
-                                    }else{
+                                    } else {
 
-                                   } newPost+=` 
+                                    }
+                                    newPost += ` 
                                 </div>
                             </div>
                         </div>`;
@@ -297,54 +267,6 @@
                                 } else {
                                     alert("Post Add Erorr");
                                 }
-                                // if (response == "") {
-                                //     $.ajax({
-                                //         type: "GET",
-                                //         url: "/posts/views",
-                                //         success: function(result) {
-                                //             console.log(result);
-                                //             $("div.posts").html(result);
-                                //             $("#postForm")[0].reset();
-                                //             alert("Post submitted successfully!");
-                                //             $(".like").off("click");
-                                //             $(".like").on("click", function() {
-                                //                 var postid = $(this).data("id");
-                                //                 $post = $(this);
-
-                                //                 $.ajax({
-                                //                     url: "/posts/likes",
-                                //                     type: "post",
-                                //                     data: {
-                                //                         postid: postid,
-                                //                     },
-                                //                     success: function(response) {
-                                //                         console.log(response);
-                                //                         if (response.error) {
-                                //                             alert(response.error);
-                                //                             if (response.error ==
-                                //                                 "User not logged in."
-                                //                                 ) {
-                                //                                 window.location
-                                //                                     .href =
-                                //                                     "/login";
-                                //                             }
-                                //                         } else {
-                                //                             $post
-                                //                                 .parent()
-                                //                                 .find(
-                                //                                     "span.likes_count"
-                                //                                     )
-                                //                                 .text(response +
-                                //                                     " likes");
-                                //                             $post.toggleClass(
-                                //                                 "text-red-600");
-                                //                         }
-                                //                     },
-                                //                 });
-                                //             });
-                                //         },
-                                //     });
-                                // }
                             },
                             error: function(xhr, status, error) {
                                 console.error(xhr.responseText);
@@ -405,9 +327,6 @@
                         });
                     });
 
-
-
-
                     $(document).ready(function() {
                         $(document).on('submit', '.comment-form', function(e) {
                             e.preventDefault();
@@ -444,9 +363,6 @@
                             });
                         });
 
-
-
-
                         $(document).on('click', '.reply-button', function(e) {
                             e.preventDefault();
                             var parent = $(this).closest('.flex');
@@ -458,7 +374,7 @@
             <input type="hidden" name="post_id" value="{{ $post->id }}">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
         </form>`;
-                            parent.append(replyForm);
+                            parent.after(replyForm);
                         });
 
                         $(document).on('submit', '.reply-form', function(e) {
@@ -487,7 +403,7 @@
                         <p class="text-gray-500 text-sm">${response.content}</p>
                     </div>
                 </div>`;
-                                    form.closest('.flex').append(newReply);
+                                    form.after(newReply);
                                     form.remove();
                                 },
                                 error: function(response) {

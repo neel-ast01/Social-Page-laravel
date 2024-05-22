@@ -48,8 +48,10 @@ class CommentController extends Controller
             ]);
             $comment->save();
 
-          
-            return response()->json($comment->load('user'));
+
+            return response()->json($comment->load(['user', 'replies' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }]));
         } catch (\Exception $e) {
             Log::error('Error storing comment: ' . $e->getMessage());
             Log::error('Request Data: ', $request->all());
