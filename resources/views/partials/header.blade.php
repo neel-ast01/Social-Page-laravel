@@ -1,39 +1,32 @@
-{{-- <!doctype html>
-<html lang="en">
-
-<head> --}}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- Tailwind CSS -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<!-- Flowbite CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<!-- Alpine.js -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.3.0/dist/alpine.min.js" defer></script>
+
+<!-- jQuery (you only need one) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+<!-- Flowbite JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.5.1/flowbite.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.5.1/flowbite.min.js"></script>
 
-
-<!-- jQuery -->
-<script type="text/javascript">
+<!-- Additional configuration -->
+<script>
     var base_url = {!! "'" . URL::to('/') . "/'" !!};
     var csrf_token = "{{ csrf_token() }}";
 </script>
-{{-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> --}}
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-{{-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.tailwindcss.com"></script> --}}
-{{-- <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
-<script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
-<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> --}}
 
 <script>
     /* eslint-env node */

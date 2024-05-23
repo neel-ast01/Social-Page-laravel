@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -67,7 +67,8 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                        12.3 k
+                                        <span id="comment-count-{{ $post->id }}"
+                                            class="comment_count">{{ $post->comments->count() }} comments </span>
                                     </button>
 
 
@@ -95,10 +96,6 @@
                                         </button>
                                     @else
                                     @endif
-
-
-
-
                                 </div>
                                 <hr class="mt-2 mb-2 ">
                                 <p class="text-gray-800 font-semibold">Comment</p>
@@ -157,25 +154,24 @@
                 </style>
 
                 <script>
+                    $(document).ready(function() {
+                        likeButton();
+                        handleCommentForm();
+                    });
                     $("#postForm").submit(function(e) {
-                        e.preventDefault(); // Prevent the form from submitting
-                        var formData = new FormData(this); // Create FormData object
+                        e.preventDefault();
+                        var formData = new FormData(this);
                         $.ajax({
-                            url: "{{ route('posts.store') }}", // Form action URL
+                            url: "{{ route('posts.store') }}",
                             type: "POST",
                             data: formData,
-                            processData: false, // Prevent jQuery from processing data
-                            contentType: false, // Set content type to false
+                            processData: false,
+                            contentType: false,
                             success: function(response) {
-                                console.log(response);
                                 if (response.success) {
                                     var post = response.post;
-                                    // var user = response.post.user;
                                     var user = response.user;
                                     console.log(response);
-                                    // console.log(response.user);
-                                    // console.log(response.post.user);
-                                    // var imagePath = "assets/posts/" + post.post_image;
                                     var newPost = `
                         <div class="flex w-full p-8 border-b border-gray-300 ">
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
@@ -201,12 +197,11 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                        12.3 k
+                                      <span id="comment-count-${ post.id }">${response.commentCount} comment</span>
                                     </button>
-                                   
                                     <button
-                                        class="like-button flex-1 flex items-center text-xs text-gray-400 hover:text-red-600 transition duration-350 ease-in-out {{ in_array($user->id, $post->likes->pluck('user_id')->toArray()) ? 'text-red-600' : '' }}"
-                                        data-id="{{ $post->id }}">
+                                        class="like-button flex-1 flex items-center text-xs text-gray-400 hover:text-red-600 transition duration-350 ease-in-out "
+                                        data-id="${ post.id }">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                             <g>
                                                 <path
@@ -214,11 +209,12 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                        <span class="likes_count">{{ $post->likes->count() }} likes</span>
-                                    </button>`;
+                                        <span class="likes_count">${response.likecount} likes</span>
+                                    </button>
+                                  `;
                                     if (post.user.id == user.id) {
                                         newPost += `
-                                        <button class="savePostButton" data-id="{{ $post->id }}"
+                                        <button class="savePostButton" data-id="${ post.id }"
                                             class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
                                         @if ($post->is_archive) text-blue-600 @endif">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -232,38 +228,26 @@
                                     }
                                     newPost += ` 
                                 </div>
+                                <hr class="mt-2 mb-2 ">
+                                <p class="text-gray-800 font-semibold">Comment</p>
+                                <hr class="mt-2 mb-2">
+                                <div class="mt-4">
+                                    <div class="comments" id="comments-${post.id }">
+                                        </div>
+                                    <form class="comment-form" data-post-id="${ post.id }">
+                                        <textarea name="content" required class="border p-2 w-full"></textarea>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>`;
                                     // Append the new post to the posts container
                                     $("div.posts").prepend(newPost);
                                     // Reset the form
                                     $("#postForm")[0].reset();
+                                    likeButton();
 
-                                    $(".like-button").on("click", function(e) {
-                                        console.log('here');
-                                        e.preventDefault();
-                                        var postid = $(this).data("id");
-                                        var $button = $(this);
 
-                                        $.ajax({
-                                            url: "{{ route('post.like') }}",
-                                            type: "post",
-                                            data: {
-                                                postid: postid,
-                                                _token: '{{ csrf_token() }}'
-                                            },
-                                            success: function(response) {
-                                                console.log(response);
-                                                if (response.success) {
-                                                    $button
-                                                        .toggleClass("text-red-600")
-                                                        .find("span.likes_count")
-                                                        .text(response.likeCount + " likes");
-                                                }
-                                            }
-
-                                        });
-                                    });
                                 } else {
                                     alert("Post Add Erorr");
                                 }
@@ -275,31 +259,33 @@
                         });
                     });
 
-                    $(".like-button").on("click", function(e) {
-                        console.log('here');
-                        e.preventDefault();
-                        var postid = $(this).data("id");
-                        var $button = $(this);
+                    function likeButton() {
+                        $(".like-button").on("click", function(e) {
+                            console.log('here');
+                            e.preventDefault();
+                            var postid = $(this).data("id");
+                            var $button = $(this);
 
-                        $.ajax({
-                            url: "{{ route('post.like') }}",
-                            type: "post",
-                            data: {
-                                postid: postid,
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                if (response.success) {
-                                    $button
-                                        .toggleClass("text-red-600")
-                                        .find("span.likes_count")
-                                        .text(response.likeCount + " likes");
+                            $.ajax({
+                                url: "{{ route('post.like') }}",
+                                type: "post",
+                                data: {
+                                    postid: postid,
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    if (response.success) {
+                                        $button
+                                            .toggleClass("text-red-600")
+                                            .find("span.likes_count")
+                                            .text(response.likeCount + " likes");
+                                    }
                                 }
-                            }
 
+                            });
                         });
-                    });
+                    }
 
                     $(".savePostButton").on("click", function(e) {
                         e.preventDefault();
@@ -327,7 +313,7 @@
                         });
                     });
 
-                    $(document).ready(function() {
+                    function handleCommentForm() {
                         $(document).on('submit', '.comment-form', function(e) {
                             e.preventDefault();
                             var form = $(this);
@@ -356,6 +342,10 @@
                 </div>`;
                                     $('#comments-' + postId).append(newComment);
                                     form.find('textarea[name="content"]').val('');
+                                    var commentCountElement = $('#comment-count-' + postId);
+                                    var currentCount = parseInt(commentCountElement.text());
+                                    commentCountElement.text(currentCount + 1 + " comments");
+
                                 },
                                 error: function(response) {
                                     alert('Error submitting comment: ' + response.responseJSON.error);
@@ -411,10 +401,7 @@
                                 }
                             });
                         });
-
-
-
-                    });
+                    }
                 </script>
             </div>
         </div>

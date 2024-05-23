@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
@@ -22,7 +23,7 @@ class PostController extends Controller
             ->where('is_archive', 0)
             ->orderBy('created_at', 'desc')
             ->get();
-            // return $posts->comments;
+        // return $posts->comments;
         return view('home', compact('posts', 'user'));
     }
 
@@ -77,10 +78,13 @@ class PostController extends Controller
 
             $post->user_id = auth()->user()->id;
             $post->save();
+            $likeCount = Like::where('post_id', $post->id)->count();
+            $commentCount = Comment::where('post_id', $post->id)->count();
+
             $user = $post->user;
             // return $post;
 
-            return response()->json(['success' => true, 'post' => $post, 'user' => $user]);
+            return response()->json(['success' => true, 'post' => $post, 'user' => $user, 'likecount' => $likeCount, 'commentCount' => $commentCount]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response()->json(['success' => false]);
@@ -108,32 +112,43 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        try {
+            $request->validate([
+                'post_data' => 'required|string|max:255',
+                'post_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-        $request->validate([
-            'post_data' => 'required|string|max:255',
-            'post_img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+            $post = Post::findOrFail($id);
+            // return $post;
+            $post->descrip = $request->input('post_data');
 
-        $post = Post::findOrFail($id);
-        // return $post;
-        $post->descrip = $request->input('post_data');
+            Log::info('Request data: ' . json_encode($request->all()));
+            if ($request->hasFile('post_img')) {
+                $file = $request->file('post_img');
+                Log::info('File received: ' . $file->getClientOriginalName());
+                $fileName = $file->getClientOriginalName();
+                Log::info('File moved to directory: ' . public_path('assets/posts') . '/' . $fileName);
+                $file->move(public_path('assests/posts'), $fileName);
+                $post->post_image = $fileName;
+            }
 
-        if ($request->hasFile('post_img')) {
-            $file = $request->file('post_img');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('assests/posts'), $fileName);
-            $post->post_image = $fileName;
+            $post->save();
+            // $post->update($request->all());
+
+            // Check if the image is updated or not
+            $imageUpdated = $post->wasChanged('post_image');
+
+            // Log success
+            Log::info('Post updated successfully.');
+            Log::info($imageUpdated);
+
+            return response()->json(['success' => true, 'post' => $post, 'image_updated' => $imageUpdated]);
+        } catch (Exception $e) {
+            // Log error
+            Log::error('Error updating post: ' . $e->getMessage());
+
+            return response()->json(['success' => false, 'error' => 'An error occurred while updating the post.']);
         }
-
-
-
-
-        $post->save();
-        // $post->update($request->all());
-
-
-
-        return response()->json(['success' => true, 'post' => $post]);
     }
 
     /**

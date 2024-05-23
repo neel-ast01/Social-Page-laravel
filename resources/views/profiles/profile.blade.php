@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -208,218 +208,9 @@
                                         </div>
 
 
-                                        {{-- <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" class="relative inline-block text-left">
-                                                <!-- Delete Button -->
-                                                <button type="button" @click="isOpen = !isOpen"
-                                                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
-                                                    id="menu-button" aria-expanded="true" aria-haspopup="true">
-                                                    <svg class="w-5 h-5" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 16 3">
-                                                        <path
-                                                            d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                                    </svg>
-                                                </button>
-
-                                                <div x-show="isOpen"
-                                                    x-transition:enter="transition ease-out duration-100 transform"
-                                                    x-transition:enter-start="opacity-0 scale-95"
-                                                    x-transition:enter-end="opacity-100 scale-100"
-                                                    x-transition:leave="transition ease-in duration-75 transform"
-                                                    x-transition:leave-start="opacity-100 scale-100"
-                                                    x-transition:leave-end="opacity-0 scale-95"
-                                                    @click.away="isOpen = false; isDeleting = false; isEditing = false"
-                                                    @keydown.escape.window="isOpen = false; isDeleting = false; isEditing = false"
-                                                    class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                                    role="menu" aria-orientation="vertical"
-                                                    aria-labelledby="menu-button" tabindex="-1">
-                                                    <div class="py-2" role="none">
-                                                        <!-- Delete Button -->
-                                                        <button
-                                                            class="bg-red-500 w-44 mb-1 mr-2 ml-2 opacity-75 hover:opacity-100 text-black-900 hover:text-gray-900 rounded-full px-4 py-2 font-semibold"
-                                                            type="button" @click="isDeleting = true">
-                                                            DELETE
-                                                        </button>
-
-                                                        <div x-show="isDeleting"
-                                                            class="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-50 z-20"
-                                                            @click="isOpen = false; isDeleting = false"></div>
-
-                                                        <!-- Delete Modal -->
-                                                        <div x-show="isDeleting"
-                                                            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
-                                                            <button type="button" @click="isDeleting = false"
-                                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                data-modal-toggle="deleteModal">
-                                                                <svg aria-hidden="true" class="w-5 h-5"
-                                                                    fill="currentColor" viewBox="0 0 20 20"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                        clip-rule="evenodd"></path>
-                                                                </svg>
-                                                                <span class="sr-only">Close modal</span>
-                                                            </button>
-
-                                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-                                                                aria-hidden="true" fill="currentColor"
-                                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-
-                                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure
-                                                                you
-                                                                want to delete this item?</p>
-
-                                                            <div class="flex justify-center items-center space-x-4">
-                                                                <button data-modal-toggle="deleteModal" type="button"
-                                                                    @click="isDeleting = false"
-                                                                    class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                                    No, cancel
-                                                                </button>
-
-                                                                <button type="button" data-id="{{ $post->id }}"
-                                                                    class="delete-post-button py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                                    Yes, I'm sure
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                        <hr class="dark:border-gray-200" />
-
-                                                        <!-- Update Button -->
-                                                        <button @click="isEditing = !isEditing"
-                                                            class="bg-sky-500 w-44 mt-1 mr-2 ml-2 opacity-75 hover:opacity-100 text-black-900 hover:text-gray-900 rounded-full px-4 py-2 font-semibold"
-                                                            type="button">
-                                                            <i class="mdi mdi-pencil -ml-2 mr-2"></i> UPDATE
-                                                        </button>
-
-                                                        <div x-show="isEditing"
-                                                            x-transition:enter="transition ease-out duration-100 transform"
-                                                            x-transition:enter-start="opacity-0 scale-95"
-                                                            x-transition:enter-end="opacity-100 scale-100"
-                                                            x-transition:leave="transition ease-in duration-75 transform"
-                                                            x-transition:leave-start="opacity-100 scale-100"
-                                                            x-transition:leave-end="opacity-0 scale-95"
-                                                            @click.away="isEditing = false"
-                                                            @keydown.escape.window="isEditing = false"
-                                                            class="update-model  fixed w-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg p-6 z-50 w-128">
-                                                            <!-- Modal content -->
-                                                            <div class="relative p-4">
-                                                                <!-- Modal content -->
-                                                                <div
-                                                                    class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                                    <!-- Modal header -->
-                                                                    <div
-                                                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                                        <h3
-                                                                            class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                                            Update Post</h3>
-                                                                        <button type="reset"
-                                                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                            @click="isEditing = false">
-                                                                            <svg class="w-3 h-3" aria-hidden="true"
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                fill="none" viewBox="0 0 14 14">
-                                                                                <path stroke="currentColor"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                                            </svg>
-                                                                            <span class="sr-only">Close modal</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <!-- Modal body -->
-                                                                    <form class="update-button p-4 md:p-5"
-                                                                        enctype="multipart/form-data"
-                                                                        data-id="{{ $post->id }}">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                                                            <div class="col-span-2">
-                                                                                <label for="post_title"
-                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                                    Title</label>
-                                                                                <input type="text" name="post_data"
-                                                                                    id="post_data"
-                                                                                    value="{{ $post->descrip }}"
-                                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                                    placeholder="Hello Good Morning!"
-                                                                                    required />
-                                                                            </div>
-                                                                            <div class="col-span-2">
-                                                                                <label for="photo"
-                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                                    Image</label>
-                                                                                <div
-                                                                                    class="mt-2 flex justify-center rounded-lg border px-6 py-10">
-                                                                                    <div class="text-center">
-                                                                                        <svg class="mx-auto h-12 w-12 text-gray-300"
-                                                                                            viewBox="0 0 24 24"
-                                                                                            fill="currentColor"
-                                                                                            aria-hidden="true">
-                                                                                            <path fill-rule="evenodd"
-                                                                                                d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                                                                                                clip-rule="evenodd" />
-                                                                                        </svg>
-                                                                                        <div
-                                                                                            class="mt-4 flex text-sm leading-6 text-gray-900">
-                                                                                            <label for="file-upload"
-                                                                                                class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                                                                <span>Upload a file</span>
-                                                                                                <input id="file-upload"
-                                                                                                    name="post_img"
-                                                                                                    type="file"
-                                                                                                    value="\assests\posts\{{ $post->post_image }}"
-                                                                                                    class="sr-only" />
-                                                                                            </label>
-                                                                                            <p class="pl-1">or drag and
-                                                                                                drop
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        <p
-                                                                                            class="text-xs leading-5 text-gray-900">
-                                                                                            PNG, JPG, GIF up to 10MB</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <input type="hidden"
-                                                                                    name="existing_photo"
-                                                                                    value="" />
-                                                                            </div>
-                                                                            <input type="hidden" name="_method"
-                                                                                value="PUT">
-                                                                        </div>
-                                                                        <button type="submit"
-                                                                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                fill="none" viewBox="0 0 24 24"
-                                                                                stroke-width="1.5" stroke="currentColor"
-                                                                                class="w-6 h-6 mr-2">
-                                                                                <path stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                                                            </svg>
-                                                                            Update Post
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>  --}}
-
-
-                                        {{-- THIS 12:32 UPDATE --}}
                                         <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" x-init="isDeleting = false;
-                                            isEditing = false"
-                                                class="relative inline-block text-left">
-                                                <!-- Delete Button -->
+                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" class="relative inline-block text-left">
+                                                <!-- Dropdown Button -->
                                                 <button type="button" @click="isOpen = !isOpen"
                                                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
                                                     id="menu-button" aria-expanded="true" aria-haspopup="true">
@@ -432,318 +223,145 @@
                                                 </button>
 
                                                 <div x-show="isOpen"
+                                                    class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                                    @click.away="isOpen = false; isDeleting = false"
+                                                    @keydown.escape.window="isOpen = false; isDeleting = false">
+                                                    <div class="py-2" role="none">
+                                                        <!-- Delete Button -->
+                                                        <button
+                                                            class="w-full mb-1 px-4 py-2 text-left text-red-600 hover:bg-red-100 hover:text-red-900 font-semibold"
+                                                            type="button" @click="isDeleting = true">
+                                                            DELETE
+                                                        </button>
+                                                        <!-- Update Button -->
+                                                        <button @click="isEditing = !isEditing"
+                                                            class="w-full mt-1 px-4 py-2 text-left text-sky-500 hover:bg-sky-100 hover:text-sky-900 font-semibold"
+                                                            type="button">
+                                                            UPDATE
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <!-- Delete Modal -->
+                                                <div x-show="isDeleting"
+                                                    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
+                                                    <button type="button" @click="isDeleting = false"
+                                                        class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="deleteModal">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+
+                                                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+
+                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure
+                                                        you want to delete this item?</p>
+
+                                                    <div class="flex justify-center items-center space-x-4">
+                                                        <button data-modal-toggle="deleteModal" type="button"
+                                                            @click="isDeleting = false"
+                                                            class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                            No, cancel
+                                                        </button>
+
+                                                        <button type="button" data-id="{{ $post->id }}"
+                                                            class="delete-post-button py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                            Yes, I'm sure
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Update Modal -->
+                                                <div x-show="isEditing"
                                                     x-transition:enter="transition ease-out duration-100 transform"
                                                     x-transition:enter-start="opacity-0 scale-95"
                                                     x-transition:enter-end="opacity-100 scale-100"
                                                     x-transition:leave="transition ease-in duration-75 transform"
                                                     x-transition:leave-start="opacity-100 scale-100"
                                                     x-transition:leave-end="opacity-0 scale-95"
-                                                    @click.away="isOpen = false; isDeleting = false; isEditing = false"
-                                                    @keydown.escape.window="isOpen = false; isDeleting = false; isEditing = false"
-                                                    class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                                    role="menu" aria-orientation="vertical"
-                                                    aria-labelledby="menu-button" tabindex="-1">
-                                                    <div class="py-2" role="none">
-                                                        <!-- Delete Button -->
-                                                        <button
-                                                            class="bg-red-500 w-44 mb-1 mr-2 ml-2 opacity-75 hover:opacity-100 text-black-900 hover:text-gray-900 rounded-full px-4 py-2 font-semibold"
-                                                            type="button" @click="isDeleting = true">
-                                                            DELETE
-                                                        </button>
-
-                                                        <div x-show="isDeleting" x-cloak
-                                                            class="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-50 z-20"
-                                                            @click="isOpen = false; isDeleting = false"></div>
-
-                                                        <!-- Delete Modal -->
-                                                        <div x-show="isDeleting" x-cloak
-                                                            class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
-                                                            <button type="button" @click="isDeleting = false"
-                                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                data-modal-toggle="deleteModal">
-                                                                <svg aria-hidden="true" class="w-5 h-5"
-                                                                    fill="currentColor" viewBox="0 0 20 20"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                        clip-rule="evenodd"></path>
-                                                                </svg>
-                                                                <span class="sr-only">Close modal</span>
-                                                            </button>
-
-                                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-                                                                aria-hidden="true" fill="currentColor"
-                                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-
-                                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure
-                                                                you
-                                                                want to delete this item?</p>
-
-                                                            <div class="flex justify-center items-center space-x-4">
-                                                                <button data-modal-toggle="deleteModal" type="button"
-                                                                    @click="isDeleting = false"
-                                                                    class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                                    No, cancel
-                                                                </button>
-
-                                                                <button type="button" data-id="{{ $post->id }}"
-                                                                    class="delete-post-button py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                                    Yes, I'm sure
+                                                    @click.away="isEditing = false"
+                                                    @keydown.escape.window="isEditing = false"
+                                                    class="update-model  fixed w-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg p-6 z-50 w-128">
+                                                    <!-- Modal content -->
+                                                    <div class="relative p-4">
+                                                        <!-- Modal content -->
+                                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                            <!-- Modal header -->
+                                                            <div
+                                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                                <h3
+                                                                    class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                                    Update Post</h3>
+                                                                <button type="reset"
+                                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                    @click="isEditing = false">
+                                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 14 14">
+                                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                                    </svg>
+                                                                    <span class="sr-only">Close modal</span>
                                                                 </button>
                                                             </div>
-                                                        </div>
-
-                                                        <hr class="dark:border-gray-200" />
-
-                                                        <!-- Update Button -->
-                                                        <button @click="isEditing = !isEditing"
-                                                            class="bg-sky-500 w-44 mt-1 mr-2 ml-2 opacity-75 hover:opacity-100 text-black-900 hover:text-gray-900 rounded-full px-4 py-2 font-semibold"
-                                                            type="button">
-                                                            <i class="mdi mdi-pencil -ml-2 mr-2"></i> UPDATE
-                                                        </button>
-
-                                                        <div x-show="isEditing" x-cloak
-                                                            x-transition:enter="transition ease-out duration-100 transform"
-                                                            x-transition:enter-start="opacity-0 scale-95"
-                                                            x-transition:enter-end="opacity-100 scale-100"
-                                                            x-transition:leave="transition ease-in duration-75 transform"
-                                                            x-transition:leave-start="opacity-100 scale-100"
-                                                            x-transition:leave-end="opacity-0 scale-95"
-                                                            @click.away="isEditing = false"
-                                                            @keydown.escape.window="isEditing = false"
-                                                            class="update-model  fixed w-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg p-6 z-50 w-128">
-                                                            <!-- Modal content -->
-                                                            <div class="relative p-4">
-                                                                <!-- Modal content -->
-                                                                <div
-                                                                    class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                                    <!-- Modal header -->
-                                                                    <div
-                                                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                                        <h3
-                                                                            class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                                            Update Post</h3>
-                                                                        <button type="reset"
-                                                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                            @click="isEditing = false">
-                                                                            <svg class="w-3 h-3" aria-hidden="true"
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                fill="none" viewBox="0 0 14 14">
-                                                                                <path stroke="currentColor"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                                            </svg>
-                                                                            <span class="sr-only">Close modal</span>
-                                                                        </button>
+                                                            <!-- Modal body -->
+                                                            <form class="update-button p-4 md:p-5"
+                                                                enctype="multipart/form-data"
+                                                                data-id="{{ $post->id }}">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                                    <div class="col-span-2">
+                                                                        <label for="post_title"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
+                                                                            Title</label>
+                                                                        <input type="text" name="post_data"
+                                                                            id="post_data" value="{{ $post->descrip }}"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            placeholder="Hello Good Morning!" required />
                                                                     </div>
-                                                                    <!-- Modal body -->
-                                                                    <form class="update-button p-4 md:p-5"
-                                                                        enctype="multipart/form-data"
-                                                                        data-id="{{ $post->id }}">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                                                            <div class="col-span-2">
-                                                                                <label for="post_title"
-                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                                    Title</label>
-                                                                                <input type="text" name="post_data"
-                                                                                    id="post_data"
-                                                                                    value="{{ $post->descrip }}"
-                                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                                    placeholder="Hello Good Morning!"
-                                                                                    required />
-                                                                            </div>
-                                                                            <div class="col-span-2">
-                                                                                <label for="photo"
-                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                                    Image</label>
-                                                                                <div
-                                                                                    class="mt-2 flex justify-center rounded-lg border px-6 py-10">
-                                                                                    <div class="text-center">
-                                                                                        <svg class="mx-auto h-12 w-12 text-gray-300"
-                                                                                            viewBox="0 0 24 24"
-                                                                                            fill="currentColor"
-                                                                                            aria-hidden="true">
-                                                                                            <path fill-rule="evenodd"
-                                                                                                d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                                                                                                clip-rule="evenodd" />
-                                                                                        </svg>
-                                                                                        <div
-                                                                                            class="mt-4 flex text-sm leading-6 text-gray-900">
-                                                                                            <label for="file-upload"
-                                                                                                class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                                                                <span>Upload a file</span>
-                                                                                                <input id="file-upload"
-                                                                                                    name="post_img"
-                                                                                                    type="file"
-                                                                                                    value="\assests\posts\{{ $post->post_image }}"
-                                                                                                    class="sr-only" />
-                                                                                            </label>
-                                                                                            <p class="pl-1">or drag and
-                                                                                                drop
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        <p
-                                                                                            class="text-xs leading-5 text-gray-900">
-                                                                                            PNG, JPG, GIF up to 10MB</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <input type="hidden"
-                                                                                    name="existing_photo"
-                                                                                    value="" />
-                                                                            </div>
-                                                                            <input type="hidden" name="_method"
-                                                                                value="PUT">
-                                                                        </div>
-                                                                        <button type="submit"
-                                                                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                fill="none" viewBox="0 0 24 24"
-                                                                                stroke-width="1.5" stroke="currentColor"
-                                                                                class="w-6 h-6 mr-2">
-                                                                                <path stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                                                            </svg>
-                                                                            Update Post
-                                                                        </button>
-                                                                    </form>
+                                                                    <div class="col-span-2">
+                                                                        <label for="post_img"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile
+                                                                            Image</label>
+                                                                        <input type="file" id="post_img"
+                                                                            name="post_img"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                                    </div>
+                                                                    <input type="hidden" name="_method" value="PUT">
                                                                 </div>
-                                                            </div>
+                                                                <button type="submit" @click="isEditing = false"
+                                                                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor" class="w-6 h-6 mr-2">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                                                    </svg>
+                                                                    Update Post
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+
+
                                             </div>
                                         </div>
-
-
-                                        {{-- DropDown Button --}}
-                                        {{-- <div class="ml-[270px]">
-                                            <div class="relative inline-block text-left">
-                                                <button id="dropdownButton" data-dropdown-toggle="dropdown"
-                                                    class="inline-flex justify-center items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none bg-gray-100 rounded-lg"
-                                                    type="button">
-                                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
-                                                        </path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div id="dropdown"
-                                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
-                                                <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownButton">
-                                                    <li>
-                                                        <a href="#" data-modal-target="updateModal"
-                                                            data-modal-toggle="updateModal"
-                                                            class="block py-2 px-4 hover:bg-gray-100">Update</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" data-modal-target="deleteModal"
-                                                            data-modal-toggle="deleteModal"
-                                                            class="block py-2 px-4 hover:bg-gray-100">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div> --}}
-
-                                        <!-- Update Modal -->
-                                        <div id="updateModal" tabindex="-1" aria-hidden="true"
-                                            class="hidden fixed top-0 left-0 right-0 z-50 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto h-modal md:h-full">
-                                            <div class="relative w-full h-full max-w-2xl md:h-auto">
-                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <div
-                                                        class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                            Update Post
-                                                        </h3>
-                                                        <button type="button"
-                                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                            data-modal-toggle="updateModal">
-                                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <form class="p-6 space-y-6" method="post">
-                                                        <div>
-                                                            <label for="post_data"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                Title</label>
-                                                            <input type="text" name="post_data" id="post_data"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                                required>
-                                                        </div>
-                                                        <div>
-                                                            <label for="post_img"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Post
-                                                                Image</label>
-                                                            <input type="file" name="post_img" id="post_img"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                                                        </div>
-                                                        <button type="submit"
-                                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
-                                                            Update Post
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Delete Modal -->
-                                        <div id="deleteModal" tabindex="-1" aria-hidden="true"
-                                            class="hidden fixed top-0 left-0 right-0 z-50 flex justify-center items-center w-full p-4 overflow-x-hidden overflow-y-auto h-modal md:h-full">
-                                            <div class="relative w-full h-full max-w-2xl md:h-auto">
-                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <div
-                                                        class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                            Delete Post
-                                                        </h3>
-                                                        <button type="button"
-                                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                            data-modal-toggle="deleteModal">
-                                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <div class="p-6 space-y-6">
-                                                        <p
-                                                            class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                            Are you sure you want to delete this item?
-                                                        </p>
-                                                        <div class="flex justify-end space-x-4">
-                                                            <button type="button" data-modal-toggle="deleteModal"
-                                                                class="px-4 py-2 text-sm font-medium text-center text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                                No, cancel
-                                                            </button>
-                                                            <button type="button" data-id="{{ $post->id }}"
-                                                                class="delete-post-button px-4 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                                Yes, I'm sure
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
                                     </div>
                                 </div>
                                 <div class="pl-16">
@@ -756,97 +374,6 @@
                                             src="\assests\posts\{{ $post->post_image }}">
                                     </div>
 
-
-
-
-                                    {{-- <div class="flex items-center py-4">
-                                        <div
-                                            class="flex-1 flex items-center  text-xs  hover:text-blue-400 transition duration-350 ease-in-out">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                                <g>
-                                                    <path
-                                                        d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
-                                                    </path>
-                                                </g>
-                                            </svg>
-                                            12.3 k
-                                        </div>
-
-                                        <div
-                                            class="flex-1 flex items-center  text-xs  hover:text-green-400 transition duration-350 ease-in-out">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                                <g>
-                                                    <path
-                                                        d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
-                                                    </path>
-                                                </g>
-                                            </svg>
-                                            14 k
-                                        </div>
-                                        <div
-                                            class="flex-1 flex items-center  text-xs  hover:text-red-600 transition duration-350 ease-in-out">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                                <g>
-                                                    <path
-                                                        d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
-                                                    </path>
-                                                </g>
-                                            </svg>
-                                            14 k
-                                        </div>
-                                        <div
-                                            class="flex-1 flex items-center  text-xs  hover:text-blue-400 transition duration-350 ease-in-out">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                                <g>
-                                                    <path
-                                                        d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                                                    </path>
-                                                    <path
-                                                        d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                                                    </path>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <hr class="mt-2 mb-2 ">
-                                    <p class="text-gray-800 font-semibold">Comment</p>
-                                    <hr class="mt-2 mb-2">
-                                    <div class="mt-4">
-                                        <!-- Comment 1 -->
-                                        <div class="flex items-center space-x-2">
-                                            <img src="https://placekitten.com/32/32" alt="User Avatar"
-                                                class="w-6 h-6 rounded-full">
-                                            <div>
-                                                <p class="text-gray-800 font-semibold">Jane Smith</p>
-                                                <p class="text-gray-500 text-sm">Lovely shot! 📸</p>
-                                            </div>
-                                        </div>
-                                        <!-- Comment 2 -->
-                                        <div class="flex items-center space-x-2 mt-2">
-                                            <img src="https://placekitten.com/32/32" alt="User Avatar"
-                                                class="w-6 h-6 rounded-full">
-                                            <div>
-                                                <p class="text-gray-800 font-semibold">Bob Johnson</p>
-                                                <p class="text-gray-500 text-sm">I can't handle the cuteness! Where can I
-                                                    get
-                                                    one?
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- Reply from John Doe with indentation -->
-                                        <div class="flex items-center space-x-2 mt-2 ml-6">
-                                            <img src="https://placekitten.com/40/40" alt="User Avatar"
-                                                class="w-6 h-6 rounded-full">
-                                            <div>
-                                                <p class="text-gray-800 font-semibold">John Doe</p>
-                                                <p class="text-gray-500 text-sm">That little furball is from a local
-                                                    shelter.
-                                                    You
-                                                    should check it out! 🏠😺</p>
-                                            </div>
-                                        </div>
-                                        <!-- Add more comments and replies as needed -->
-                                    </div> --}}
                                 </div>
                                 <div class="mt-3"></div>
                                 <hr class="border-gray-800">
@@ -859,6 +386,9 @@
     </div>
     <script>
         $(document).ready(function() {
+
+
+
             $('.delete-post-button').on('click', function() {
                 var postId = $(this).data('id');
                 var token = '{{ csrf_token() }}';
@@ -876,10 +406,15 @@
                     success: function(response) {
                         if (response.status == 'success') {
                             $('#post-' + postId).remove();
-                            $('#deleteModal').addClass('hidden');
-                            const modal = $('#deleteModal');
-                            modal.hide();
-                            $('.flowbite-backdrop').hide();
+
+                            // // $('#deleteModal').addClass('hidden'); // Hide the delete modal
+                            // $('.flowbite-backdrop').hide(); // Hide the backdrop if you have one
+
+                            console.log('Post is delete');
+                            // $('#deleteModal').addClass('hidden');
+                            // const modal = $('#deleteModal');
+                            // modal.hide();
+                            // $('.flowbite-backdrop').hide();
                             //   modal.addClass('hidden');
                             //   backdrop.addClass('hidden'); // Hide the backdrop
                             // alert(response.message);
@@ -913,10 +448,7 @@
                         $postContainer.find('#post-description').text(data.post.descrip);
                         $postContainer.find('#post-image').attr('src', 'assests/posts/' + data
                             .post.post_image);
-
-                        // Reset the isEditing state variable
-                        $postContainer.closest('.update-model').find('[x-data]').data(
-                            'isEditing', false);
+                        $('#updateModal').addClass('hidden');
                     },
                     error: function(xhr, status, error) {
                         console.error('Error:', error);
@@ -924,37 +456,7 @@
                 });
             });
 
-            // $('.update-button').submit(function(event) {
-            //     event.preventDefault();
 
-            //     var formData = new FormData(this);
-            //     var postId = $(this).data('id');
-            //     // formData.append('_method', 'PUT'); // Append _method field
-            //     console.log("Hello");
-            //     $.ajax({
-            //         url: base_url + "posts/" + postId,
-            //         type: 'POST', // Use POST method
-            //         data: formData,
-            //         processData: false,
-            //         contentType: false,
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         },
-            //         success: function(data) {
-
-
-            //             $('#post-description').text(data.post.descrip);
-            //             $('#post-image').attr('src', 'assests/posts/' + data
-            //                 .post.post_image);
-
-            //             // $('.update-model').fadeOut();
-
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error('Error:', error);
-            //         }
-            //     });
-            // });
 
             $('.update-profile').submit(function(event) {
 

@@ -12,7 +12,7 @@ class Post extends Model
 
 
 
-    protected $fillable = ['descrip', 'post_image', 'user_id'];
+    protected $fillable = ['descrip', 'post_image', 'user_id','like_count'];
 
 
     public function user()

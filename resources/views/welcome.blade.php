@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+   
     @include('partials.header')
 
 </head>
@@ -16,6 +16,7 @@
             @include('partials.trending')
         </div>
     </div>
+    
     @include('partials.footer')
     @yield('script')
 </body>

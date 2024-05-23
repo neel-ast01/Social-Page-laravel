@@ -21,9 +21,11 @@ class LikeController extends Controller
 
             if ($like) {
                 $like->delete();
+                Post::where('id', $postId)->decrement('like_count');
+                
             } else {
                 Like::create(['user_id' => $user->id, 'post_id' => $postId]);
-
+                Post::where('id', $postId)->increment('like_count');
             }
 
 
