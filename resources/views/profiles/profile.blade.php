@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -29,10 +29,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Follow Button -->
+                        <!-- Edit Profile Button -->
                         <div class="flex flex-col text-right">
                             <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
-                                class="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
+                                class="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg font-bold py-2 px-4 mr-0 ml-auto">
                                 Edit Profile
                             </button>
                         </div>
@@ -179,9 +179,6 @@
                 </div>
                 <hr class="border-gray-800">
             </div>
-
-            {{-- <div class="text-center py-4">No posts found.</div> --}}
-
             <ul class="list-none">
                 @if ($posts->isEmpty())
                     <p class="text-center py-4">No posts found.</p>
@@ -208,8 +205,11 @@
                                         </div>
 
 
+
+
+                                        {{-- working using chat --}}
                                         <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" class="relative inline-block text-left">
+                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false, , isArchiving: false }" class="relative inline-block text-left">
                                                 <!-- Dropdown Button -->
                                                 <button type="button" @click="isOpen = !isOpen"
                                                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
@@ -222,10 +222,10 @@
                                                     </svg>
                                                 </button>
 
-                                                <div x-show="isOpen"
+                                                <div x-show="isOpen" x-cloak
                                                     class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                                    @click.away="isOpen = false; isDeleting = false"
-                                                    @keydown.escape.window="isOpen = false; isDeleting = false">
+                                                    @click.away="isOpen = false; isDeleting = false;  isArchiving = false"
+                                                    @keydown.escape.window="isOpen = false; isDeleting = false;  isArchiving = false">
                                                     <div class="py-2" role="none">
                                                         <!-- Delete Button -->
                                                         <button
@@ -239,10 +239,16 @@
                                                             type="button">
                                                             UPDATE
                                                         </button>
+                                                        {{-- Archive Button --}}
+                                                        <button @click="isArchiving = true"
+                                                            class="w-full mt-1 px-4 py-2 text-left text-yellow-600 hover:bg-yellow-100 hover:text-yellow-900 font-semibold"
+                                                            type="button">
+                                                            ARCHIVE
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <!-- Delete Modal -->
-                                                <div x-show="isDeleting"
+                                                <div x-show="isDeleting" x-cloak
                                                     class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
                                                     <button type="button" @click="isDeleting = false"
                                                         class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -257,6 +263,14 @@
                                                     </button>
 
                                                     <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                        aria-hidden="true" fill="currentColor"
+                                                        viewBox="0293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                    </button>
+
+                                                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
                                                         aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd"
@@ -264,8 +278,8 @@
                                                             clip-rule="evenodd"></path>
                                                     </svg>
 
-                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure
-                                                        you want to delete this item?</p>
+                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want
+                                                        to delete this item?</p>
 
                                                     <div class="flex justify-center items-center space-x-4">
                                                         <button data-modal-toggle="deleteModal" type="button"
@@ -282,7 +296,7 @@
                                                 </div>
 
                                                 <!-- Update Modal -->
-                                                <div x-show="isEditing"
+                                                <div x-show="isEditing" x-cloak
                                                     x-transition:enter="transition ease-out duration-100 transform"
                                                     x-transition:enter-start="opacity-0 scale-95"
                                                     x-transition:enter-end="opacity-100 scale-100"
@@ -357,11 +371,50 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- Archive Modal -->
+                                                <div x-show="isArchiving" x-cloak
+                                                    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
+                                                    <button type="button" @click="isArchiving = false"
+                                                        class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="archiveModal">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
 
+                                                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
 
+                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want
+                                                        to archive this item?</p>
 
+                                                    <div class="flex justify-center items-center space-x-4">
+                                                        <button data-modal-toggle="archiveModal" type="button"
+                                                            @click="isArchiving = false"
+                                                            class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                            No, cancel
+                                                        </button>
+
+                                                        <button type="button" data-id="{{ $post->id }}"
+                                                            class="archive-post-button py-2 px-3 text-sm font-medium text-center text-white bg-yellow-600 rounded-lg hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900">
+                                                            Yes, I'm sure
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+
+                                      
                                     </div>
                                 </div>
                                 <div class="pl-16">
@@ -384,6 +437,7 @@
             </ul>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
 
