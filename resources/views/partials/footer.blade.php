@@ -13,4 +13,3 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
 
 <!-- Alpine.js -->
-{{-- <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script> --}}

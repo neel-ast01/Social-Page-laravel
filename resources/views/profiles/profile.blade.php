@@ -209,7 +209,7 @@
 
                                         {{-- working using chat --}}
                                         <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false, , isArchiving: false }" class="relative inline-block text-left">
+                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false,  isArchiving: false }" class="relative inline-block text-left">
                                                 <!-- Dropdown Button -->
                                                 <button type="button" @click="isOpen = !isOpen"
                                                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
