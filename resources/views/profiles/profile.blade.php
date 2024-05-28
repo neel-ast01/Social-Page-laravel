@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -24,7 +24,9 @@
                                 <div style="height:9rem; width:9rem;" class="md rounded-full relative avatar">
                                     <img id="profile-image" style="height:9rem; width:9rem;"
                                         class="md rounded-full relative border-2 border-gray-900"
-                                        src="assests/{{ $user->profile_picture }}" alt="">
+                                       
+                                        src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+                                        alt="">
                                     <div class="absolute"></div>
                                 </div>
                             </div>
@@ -67,7 +69,7 @@
                                                 <label for="username"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                                                 <input type="text" name="username" id="username"
-                                                    value="{{ $user->username }}"
+                                                    value="{!! $user->username !!}"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Username" readonly>
                                             </div>
@@ -76,7 +78,7 @@
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                                                     Name</label>
                                                 <input type="text" name="fullName" id="fullName"
-                                                    value = "{{ $user->fullName }}"
+                                                    value = "{!! $user->fullName !!}"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Full Name" required>
                                             </div>
@@ -192,14 +194,16 @@
                                     <div class="flex items-center">
                                         <div>
                                             <img class="inline-block h-10 w-10 rounded-full"
-                                                src="assests/{{ $user->profile_picture }}" alt="">
+                                                
+                                                src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+                                                alt="">
                                         </div>
                                         <div class="ml-3">
                                             <p class="text-base leading-6 font-medium ">
                                                 {{ $user->fullName }}
                                                 <span
                                                     class="text-sm leading-5 font-medium  transition ease-in-out duration-150">
-                                                    {{ '@' . $user->username }} {{ $post->created_at->format('W M') }}
+                                                    {{ '@' . $user->username }} {{ $post->created_at->format('d M') }}
                                                 </span>
                                             </p>
                                         </div>
@@ -209,7 +213,7 @@
 
                                         {{-- working using chat --}}
                                         <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false,  isArchiving: false }" class="relative inline-block text-left">
+                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false, isArchiving: false }" class="relative inline-block text-left">
                                                 <!-- Dropdown Button -->
                                                 <button type="button" @click="isOpen = !isOpen"
                                                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
@@ -414,7 +418,7 @@
                                         </div>
 
 
-                                      
+
                                     </div>
                                 </div>
                                 <div class="pl-16">

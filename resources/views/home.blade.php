@@ -11,13 +11,17 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
                 <div class="flex w-full p-8 border-b-4 border-gray-300">
-                    <img src="assests/{{ auth()->user()->profile_picture }}" class="w-12 h-12 rounded-full"
-                        style="background-color: #ccc;">
+                    {{-- <img src="assests/{{ auth()->user()->profile_picture }}" class="w-12 h-12 rounded-full"
+                        style="background-color: #ccc;"> --}}
+
+                    <img src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+                        class="w-12 h-12 rounded-full" style="background-color: #ccc;">
+
 
                     <div class="flex flex-col flex-grow ml-4">
                         <form action="{{ route('posts.store') }}" id="postForm" method="post"
@@ -44,8 +48,11 @@
                 <div class="posts">
                     @foreach ($posts as $post)
                         <div class="post flex w-full p-8 border-b border-gray-300" data-post-id="{{ $post->id }}">
+                            {{-- <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
+                                src="\assests\{{ $post->user->profile_picture }}"></img> --}}
+
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
-                                src="\assests\{{ $post->user->profile_picture }}"></img>
+                            src="{{ is_external_url($post->user->profile_picture) ? $post->user->profile_picture : asset('assests/' . $post->user->profile_picture) }}"></img>
                             <div class="flex flex-col flex-grow ml-4">
                                 <div class="flex">
                                     <span class="font-semibold">{{ $post->user->fullName }}</span>
@@ -86,7 +93,7 @@
                                     </button>
                                     @if ($post->user->id === $user->id)
                                         <button class="savePostButton" data-id="{{ $post->id }}"
-                                            class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
+                                            class="flex-1 flex items-center text-xs hover:text-blue-400 transition duration-350 ease-in-out 
                                         @if ($post->is_archive) text-blue-600 @endif">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -104,7 +111,9 @@
                                     <div class="comments" id="comments-{{ $post->id }}">
                                         @foreach ($post->comments as $comment)
                                             <div class="flex items-center space-x-2" data-id="{{ $comment->id }}">
-                                                <img src="\assests\{{ $comment->user->profile_picture }}" alt="User Avatar"
+                                                {{-- <img src="\assests\{{ $comment->user->profile_picture }}" alt="User Avatar"
+                                                    class="w-6 h-6 rounded-full"> --}}
+                                                    <img src="{{ is_external_url($comment->user->profile_picture) ? $comment->user->profile_picture : asset('assests/' . $comment->user->profile_picture) }}" alt="User Avatar"
                                                     class="w-6 h-6 rounded-full">
                                                 <div>
                                                     <p class="text-gray-800 font-semibold">{{ $comment->user->fullName }}
@@ -116,7 +125,9 @@
                                             @foreach ($comment->replies->reverse() as $reply)
                                                 <div class="flex items-center space-x-2 mt-2 ml-6"
                                                     data-id="{{ $reply->id }}">
-                                                    <img src="\assests\{{ $reply->user->profile_picture }}"
+                                                    {{-- <img src="\assests\{{ $reply->user->profile_picture }}"
+                                                        alt="User Avatar" class="w-6 h-6 rounded-full"> --}}
+                                                        <img src="{{ is_external_url($reply->user->profile_picture) ? $reply->user->profile_picture : asset('assests/' . $reply->user->profile_picture) }}"
                                                         alt="User Avatar" class="w-6 h-6 rounded-full">
                                                     <div>
                                                         <p class="text-gray-800 font-semibold">{{ $reply->user->fullName }}
@@ -128,8 +139,9 @@
                                         @endforeach
                                     </div>
                                     <form class="comment-form" data-post-id="{{ $post->id }}">
-                                        <textarea name="content" required class="border p-2 w-full"></textarea>
-                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
+                                        <textarea name="content" required class="border rounded-md p-2 w-full"></textarea>
+                                        <button type="submit"
+                                            class="bg-blue-500 rounded-md  text-white px-4 py-2 mt-2">Submit</button>
                                     </form>
                                 </div>
 
@@ -175,7 +187,8 @@
                                     var newPost = `
                         <div class="flex w-full p-8 border-b border-gray-300 ">
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
-                                src="/assests/${ user.profile_picture }"></img>
+    src="<?php echo is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture); ?>">
+
                             <div class="flex flex-col flex-grow ml-4">
                                 <div class="flex">
                                     <span class="font-semibold">${ user.fullName }</span>
@@ -216,7 +229,7 @@
                                         newPost += `
                                         <button class="savePostButton" data-id="${ post.id }"
                                             class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
-                                        @if ($post->is_archive) text-blue-600 @endif">
+                                        ">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -333,7 +346,7 @@
                                     console.log(response);
                                     var newComment = `
                 <div class="flex items-center space-x-2 mt-2" data-id="${response.id}">
-                    <img src="/assests/${response.user.profile_picture}" alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <img src="<?php echo  is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture);  ?> " alt="User Avatar" class="w-6 h-6 rounded-full">
                     <div>
                         <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
                         <p class="text-gray-500 text-sm">${response.content}</p>
@@ -387,7 +400,7 @@
                                 success: function(response) {
                                     var newReply = `
                 <div class="flex items-center space-x-2 mt-2 ml-6" data-id="${response.id}">
-                    <img src="/assests/${response.user.profile_picture}" alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <img src="<?php echo  is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture);  ?>" alt="User Avatar" class="w-6 h-6 rounded-full">
                     <div>
                         <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
                         <p class="text-gray-500 text-sm">${response.content}</p>

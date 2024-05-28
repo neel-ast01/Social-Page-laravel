@@ -52,7 +52,10 @@
     @if (Auth::check())
         <a href="{{ route('profile.index') }}"
             class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
-            <img src="assests/{{ auth()->user()->profile_picture }}" alt="Profile Picture"
+            <img 
+            
+            src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+            alt="Profile Picture"
                 class="flex-shrink-0 w-10 h-10 rounded-full">
 
             <div class="flex flex-col ml-2">

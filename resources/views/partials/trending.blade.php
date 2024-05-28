@@ -3,7 +3,7 @@
     {{-- <div> --}}
     {{-- <h3 class="mt-6 font-semibold">Suggest Friend Lists</h3> --}}
 
-    <div class="container">
+    {{-- <div class="container">
         <h3 class="mt-6 font-semibold">Suggested Friends</h3>
         <div id="suggestedFriendsList" class="overflow-hidden">
             <div class="flex-grow h-64 overflow-auto">
@@ -26,15 +26,16 @@
             </div>
         </div>
     </div>
-    <div class="mt-2 mb-2"></div>
+    <div class="mt-2 mb-2"></div> --}}
     <div class="container">
-        <h3 class="font-semibold">User List</h3>
+        <h3 class="mt-1 font-semibold">User List</h3>
         <div class="overflow-hidden">
-            <div class="flex-grow h-72 overflow-auto">
+            <div class="flex-grow h-96 overflow-auto">
                 @foreach ($users as $user)
-                    <div class="flex w-full py-4 border-b border-gray-300">
+                    <div class="flex w-full py-2 border-b border-gray-300">
                         <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
-                            src="\assests\{{ $user->profile_picture }}" alt="{{ $user->fullName }} Profile Picture">
+                            src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+                            alt="{{ $user->fullName }} Profile Picture">
                         <div class="flex flex-col flex-grow ml-4">
                             <div class="flex text-sm">
                                 <span class="font-semibold">{{ $user->fullName }}</span>
@@ -43,9 +44,11 @@
                         </div>
                         <div>
                             @if (Auth::user()->followings->contains($user))
-                                <button class="removeFriend-btn" data-id="{{ $user->id }}">Unfollow</button>
+                                <button class="removeFriend-btn border p-2 bg-zinc-500 rounded-md" data-id="{{ $user->id }}">
+                                    Unfollow</button>
                             @else
-                                <button class="addFrind-btn" data-id="{{ $user->id }}">Follow</button>
+                                <button class="addFrind-btn border p-2 bg-blue-400 rounded-md" data-id="{{ $user->id }}">
+                                    Follow</button>
                             @endif
                         </div>
                     </div>

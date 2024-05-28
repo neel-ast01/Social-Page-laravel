@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\FriendListController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LoginController;
@@ -14,6 +17,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Models\Follow;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,6 +30,15 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+    Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+    Route::get('auth/google',[GoogleAuthController::class,'redirect'])->name('google-auth');
+    Route::get('auth/google/call-back',[GoogleAuthController::class,'callbackGoogle']);
 });
 Route::group(['middleware' => 'auth'], function () {
     Route::get(
@@ -53,10 +66,4 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/archived-posts', [ArchiveController::class, 'index'])->name('archived-posts.index');
     Route::post('/showHidePost', [ArchiveController::class, 'showHidePost'])->name('showHidePost');
-
-    // Route::get('/hidden-posts', 'Controller@showHiddenPosts')->name('hidden.posts');
-    // Route::get('/hidden-posts', [ArchiveController::class, 'showHiddenPosts'])->name('hidden.posts');
-
-    // Route::post('/user/follow', 'FollowController@follow')->name('user.follow');
-    // Route::post('/user/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 });

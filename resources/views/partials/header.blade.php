@@ -20,6 +20,10 @@
     [x-cloak] {
         display: none;
     }
+
+    ::-webkit-scrollbar{
+        display: none;
+    }
 </style>
 
 <!-- Additional configuration -->

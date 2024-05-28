@@ -9,78 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <style>
-        .error {
-            color: red
-        }
-    </style>
-
 </head>
 
 <body>
-    {{-- <div class="relative py-16 bg-clifford">
-        <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40">
-            <div class="m-auto md:w-8/12 lg:w-6/12 xl:w-6/12">
-                <div class="rounded-xl bg-slate-400 shadow-xl">
-                    <div class="p-6 sm:p-16">
-                        <div class="space-y-4">
-                            <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Log in</h2>
-                        </div>
-
-                        <form id="registerForm" action="{{ route('login') }}" method="POST" class="max-w-sm mx-auto">
-
-
-                            @csrf
-                            <label for="email-address" class="block mt-4 mb-2 text-sm font-medium text-gray-900">Your
-                                Email</label>
-                            <input type="email" id="email-address"
-                                class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@flowbite.com" name="email" />
-                            @if ($errors->has('email'))
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                                    role="alert">
-                                    <strong class="font-bold">Error:</strong>
-                                    <span class="block sm:inline">{{ $errors->first('email') }}</span>
-                                </div>
-                            @endif
-
-
-                            <label for="password"
-                                class="block mt-4 mb-2 text-sm font-medium text-gray-900">Password</label>
-                            <input type="password" id="password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="........." name="password" />
-                                <div class="mb-5" ></div>
-                            @if ($errors->any())
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                                    role="alert">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-
-
-
-                            <p class="text-center mt-3 text-[16px]">Don't have an account?
-                                <a href="{{ route('register') }}" class="text-gray-800">Create one</a><br>
-                                <a href="{{ route('password.request') }}" class="text-gray-800">Forget Password</a>
-                            </p>
-                            <button type="submit"
-                                class="text-white mt-8 mb-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-500 dark:focus:ring-blue-800">Log
-                                in</button>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
             <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
@@ -90,11 +21,11 @@
                 </div>
                 <div class="mt-12 flex flex-col items-center">
                     <h1 class="text-2xl xl:text-3xl font-extrabold">
-                        Log in
+                        Send Password Link
                     </h1>
                     <div class="w-full flex-1 mt-8">
-                        <div class="flex flex-col items-center">
-                            <a href="{{ route('google-auth') }}"
+                        {{-- <div class="flex flex-col items-center">
+                            <button
                                 class="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                                 <div class="bg-white p-2 rounded-full">
                                     <svg class="w-4" viewBox="0 0 533.5 544.3">
@@ -115,9 +46,9 @@
                                 <span class="ml-4">
                                     Sign Up with Google
                                 </span>
-                            </a>
+                            </button>
 
-                            {{-- <button
+                            <button
                                 class="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                                 <div class="bg-white p-1 rounded-full">
                                     <svg class="w-6" viewBox="0 0 32 32">
@@ -128,15 +59,15 @@
                                 <span class="ml-4">
                                     Sign Up with GitHub
                                 </span>
-                            </button> --}}
-                        </div>
+                            </button>
+                        </div> --}}
 
-                        <div class="my-12 border-b text-center">
+                        {{-- <div class="my-12 border-b text-center">
                             <div
                                 class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                                 Or sign up with e-mail
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="mx-auto max-w-xs">
                             {{-- <input
@@ -157,53 +88,28 @@
                                     Sign Up
                                 </span>
                             </button> --}}
-                            <form id="registerForm" action="{{ route('login') }}" method="POST"
-                                class="max-w-sm mx-auto">
-
-
+                            <form method="POST" action="{{ route('password.email') }}">
                                 @csrf
                                 <label for="email-address"
                                     class="block mt-4 mb-2 text-sm font-medium text-gray-900">Your
                                     Email</label>
-                                <input type="email" id="email-address"
-                                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                    placeholder="name@flowbite.com" name="email" />
+                                <input type="email" name="email"
+                                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 @if ($errors->has('email'))
-                                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 mt-4 py-3 rounded relative"
                                         role="alert">
                                         <strong class="font-bold">Error:</strong>
                                         <span class="block sm:inline">{{ $errors->first('email') }}</span>
                                     </div>
                                 @endif
-
-
-                                <label for="password"
-                                    class="block mt-4 mb-2 text-sm font-medium text-gray-900">Password</label>
-                                <input type="password" id="password"
-                                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                    placeholder="........." name="password" />
-                                <div class="mb-5"></div>
-                                @if ($errors->any())
-                                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                @if (session('status'))
+                                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 mt-4 py-3 rounded relative"
                                         role="alert">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
+                                        <strong class="font-bold">Success:</strong>
+                                        <span class="block sm:inline">{{ session('status') }}</span>
                                     </div>
                                 @endif
-
-
-
-
-                                <p class="text-xs text-gray-600 text-center text-[16px]">Don't have an account?
-                                    <a href="{{ route('register') }}"
-                                        class="text-gray-800 border-b border-gray-500 border-dotted">Create one</a><br>
-                                    <a href="{{ route('password.request') }}"
-                                        class="text-gray-800 border-b border-gray-500 border-dotted">Forget Password</a>
-                                </p>
-                                <button
+                                <button type="submit"
                                     class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                     <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round">
@@ -212,10 +118,11 @@
                                         <path d="M20 8v6M23 11h-6" />
                                     </svg>
                                     <span class="ml-3">
-                                        Log in
+                                        Send Password Reset Link
                                     </span>
                                 </button>
                             </form>
+
                             <p class="mt-6 text-xs text-gray-600 text-center">
                                 I agree to abide by templatana's
                                 <a href="#" class="border-b border-gray-500 border-dotted">
@@ -237,35 +144,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#registerForm').validate({
-                rules: {
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                        minlength: 6
-                    }
-                },
-                messages: {
-                    email: {
-                        required: "Please enter your email address",
-                        email: "Please enter a valid email address"
-                    },
-                    password: {
-                        required: "Please enter a password",
-                        minlength: "Your password must be at least 6 characters long"
-                    }
-                },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
-        });
-    </script>
+
 </body>
 
 </html>
