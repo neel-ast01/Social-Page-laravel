@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\SendWelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -32,6 +34,10 @@ class RegisterController extends Controller
         }
 
         $user->save();
+
+        SendWelcomeEmail::dispatch($user);
+
+        // Auth::login($user);
 
         return redirect()->route('posts.index')->with('success', 'User registered successfully');
     }

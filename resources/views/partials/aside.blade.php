@@ -54,7 +54,7 @@
             class="flex px-3 py-2 mt-2 mt-auto text-lg rounded-lg font-medium hover:bg-gray-200">
             <img 
             
-            src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
+            src="{{ is_external_url(Auth::user()->profile_picture) ? Auth::user()->profile_picture : asset('assests/' . Auth::user()->profile_picture) }}"
             alt="Profile Picture"
                 class="flex-shrink-0 w-10 h-10 rounded-full">
 
