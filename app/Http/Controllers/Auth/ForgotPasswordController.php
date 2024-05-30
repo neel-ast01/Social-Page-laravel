@@ -19,18 +19,14 @@ class ForgotPasswordController extends Controller
         $request->validate(['email' => 'required|email']);
 
         // Dispatch the job to send the reset link email
-        SendPasswordResetLink::dispatch($request->input('email'));
+        SendPasswordResetLink::dispatch($request->email);
 
-        // Immediately return success response (you might want to add some delay indication to the user)
-        return back()->with(['status' => __('We have emailed your password reset link!')]);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __('A password reset link has been sent to your email address.')])
+            : back()->withErrors(['email' => __($status)]);
     }
-
-    //     $status = Password::sendResetLink(
-    //         $request->only('email')
-    //     );
-
-    //     return $status === Password::RESET_LINK_SENT
-    //         ? back()->with(['status' => __($status)])
-    //         : back()->withErrors(['email' => __($status)]);
-    // }
 }
