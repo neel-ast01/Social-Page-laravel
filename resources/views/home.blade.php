@@ -11,7 +11,7 @@
             <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
                 <h1 class="text-xl font-semibold">Feed Title</h1>
                 <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
             </div>
             <!-- Feed -->
             <div class="flex-grow h-0 overflow-auto">
@@ -52,7 +52,7 @@
                                 src="\assests\{{ $post->user->profile_picture }}"></img> --}}
 
                             <img class="image flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"
-                            src="{{ is_external_url($post->user->profile_picture) ? $post->user->profile_picture : asset('assests/' . $post->user->profile_picture) }}"></img>
+                                src="{{ is_external_url($post->user->profile_picture) ? $post->user->profile_picture : asset('assests/' . $post->user->profile_picture) }}"></img>
                             <div class="flex flex-col flex-grow ml-4">
                                 <div class="flex">
                                     <span class="font-semibold">{{ $post->user->fullName }}</span>
@@ -91,18 +91,7 @@
                                         </svg>
                                         <span class="likes_count">{{ $post->likes->count() }} likes</span>
                                     </button>
-                                    @if ($post->user->id === $user->id)
-                                        <button class="savePostButton" data-id="{{ $post->id }}"
-                                            class="flex-1 flex items-center text-xs hover:text-blue-400 transition duration-350 ease-in-out 
-                                        @if ($post->is_archive) text-blue-600 @endif">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-                                            </svg>
-                                        </button>
-                                    @else
-                                    @endif
+
                                 </div>
                                 <hr class="mt-2 mb-2 ">
                                 <p class="text-gray-800 font-semibold">Comment</p>
@@ -113,8 +102,8 @@
                                             <div class="flex items-center space-x-2" data-id="{{ $comment->id }}">
                                                 {{-- <img src="\assests\{{ $comment->user->profile_picture }}" alt="User Avatar"
                                                     class="w-6 h-6 rounded-full"> --}}
-                                                    <img src="{{ is_external_url($comment->user->profile_picture) ? $comment->user->profile_picture : asset('assests/' . $comment->user->profile_picture) }}" alt="User Avatar"
-                                                    class="w-6 h-6 rounded-full">
+                                                <img src="{{ is_external_url($comment->user->profile_picture) ? $comment->user->profile_picture : asset('assests/' . $comment->user->profile_picture) }}"
+                                                    alt="User Avatar" class="w-6 h-6 rounded-full">
                                                 <div>
                                                     <p class="text-gray-800 font-semibold">{{ $comment->user->fullName }}
                                                     </p>
@@ -127,7 +116,7 @@
                                                     data-id="{{ $reply->id }}">
                                                     {{-- <img src="\assests\{{ $reply->user->profile_picture }}"
                                                         alt="User Avatar" class="w-6 h-6 rounded-full"> --}}
-                                                        <img src="{{ is_external_url($reply->user->profile_picture) ? $reply->user->profile_picture : asset('assests/' . $reply->user->profile_picture) }}"
+                                                    <img src="{{ is_external_url($reply->user->profile_picture) ? $reply->user->profile_picture : asset('assests/' . $reply->user->profile_picture) }}"
                                                         alt="User Avatar" class="w-6 h-6 rounded-full">
                                                     <div>
                                                         <p class="text-gray-800 font-semibold">{{ $reply->user->fullName }}
@@ -224,22 +213,7 @@
                                         </svg>
                                         <span class="likes_count">${response.likecount} likes</span>
                                     </button>
-                                  `;
-                                    if (post.user.id == user.id) {
-                                        newPost += `
-                                        <button class="savePostButton" data-id="${ post.id }"
-                                            class="flex-1 flex items-center text-xs text-gray-400 hover:text-blue-400 transition duration-350 ease-in-out 
-                                        ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-                                            </svg>
-                                        </button>`;
-                                    } else {
-
-                                    }
-                                    newPost += ` 
+                                  
                                 </div>
                                 <hr class="mt-2 mb-2 ">
                                 <p class="text-gray-800 font-semibold">Comment</p>
@@ -346,7 +320,7 @@
                                     console.log(response);
                                     var newComment = `
                 <div class="flex items-center space-x-2 mt-2" data-id="${response.id}">
-                    <img src="<?php echo  is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture);  ?> " alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <img src="<?php echo is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture); ?> " alt="User Avatar" class="w-6 h-6 rounded-full">
                     <div>
                         <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
                         <p class="text-gray-500 text-sm">${response.content}</p>
@@ -400,7 +374,7 @@
                                 success: function(response) {
                                     var newReply = `
                 <div class="flex items-center space-x-2 mt-2 ml-6" data-id="${response.id}">
-                    <img src="<?php echo  is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture);  ?>" alt="User Avatar" class="w-6 h-6 rounded-full">
+                    <img src="<?php echo is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture); ?>" alt="User Avatar" class="w-6 h-6 rounded-full">
                     <div>
                         <p class="text-gray-800 font-semibold">${response.user.fullName}</p>
                         <p class="text-gray-500 text-sm">${response.content}</p>

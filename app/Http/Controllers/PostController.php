@@ -166,4 +166,30 @@ class PostController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Post not found.']);
         }
     }
+
+    public function archive($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->is_archive = 1;
+        $post->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Post archived successfully.']);
+    }
+
+    public function unarchive($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->is_archive = 0;
+        $post->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Post unarchived successfully.']);
+    }
+
+    public function toggleArchive(Request $request, Post $post)
+    {
+        $post->is_archive = $request->input('is_archive');
+        $success = $post->save();
+
+        return response()->json(['success' => $success]);
+    }
 }

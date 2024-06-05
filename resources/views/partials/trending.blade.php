@@ -44,10 +44,10 @@
                         </div>
                         <div>
                             @if (Auth::user()->followings->contains($user))
-                                <button class="removeFriend-btn border p-2 bg-zinc-500 rounded-md" data-id="{{ $user->id }}">
+                                <button class="removeFriend-btn border p-2 " data-id="{{ $user->id }}">
                                     Unfollow</button>
                             @else
-                                <button class="addFrind-btn border p-2 bg-blue-400 rounded-md" data-id="{{ $user->id }}">
+                                <button class="addFrind-btn border p-2 " data-id="{{ $user->id }}">
                                     Follow</button>
                             @endif
                         </div>

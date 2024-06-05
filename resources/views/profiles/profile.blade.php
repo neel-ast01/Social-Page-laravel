@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -24,7 +24,6 @@
                                 <div style="height:9rem; width:9rem;" class="md rounded-full relative avatar">
                                     <img id="profile-image" style="height:9rem; width:9rem;"
                                         class="md rounded-full relative border-2 border-gray-900"
-                                       
                                         src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
                                         alt="">
                                     <div class="absolute"></div>
@@ -194,7 +193,6 @@
                                     <div class="flex items-center">
                                         <div>
                                             <img class="inline-block h-10 w-10 rounded-full"
-                                                
                                                 src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
                                                 alt="">
                                         </div>
@@ -213,7 +211,7 @@
 
                                         {{-- working using chat --}}
                                         <div class="ml-[270px]">
-                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false, isArchiving: false }" class="relative inline-block text-left">
+                                            <div x-data="{ isOpen: false, isDeleting: false, isEditing: false }" class="relative inline-block text-left">
                                                 <!-- Dropdown Button -->
                                                 <button type="button" @click="isOpen = !isOpen"
                                                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
@@ -228,8 +226,9 @@
 
                                                 <div x-show="isOpen" x-cloak
                                                     class="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                                    @click.away="isOpen = false; isDeleting = false;  isArchiving = false"
-                                                    @keydown.escape.window="isOpen = false; isDeleting = false;  isArchiving = false">
+                                                    @click.away="isOpen = false; isDeleting = false; 
+                                                    @keydown.escape.window="isOpen=false;
+                                                    isDeleting=false">
                                                     <div class="py-2" role="none">
                                                         <!-- Delete Button -->
                                                         <button
@@ -244,11 +243,11 @@
                                                             UPDATE
                                                         </button>
                                                         {{-- Archive Button --}}
-                                                        <button @click="isArchiving = true"
+                                                        {{-- <button @click="isArchiving = true"
                                                             class="w-full mt-1 px-4 py-2 text-left text-yellow-600 hover:bg-yellow-100 hover:text-yellow-900 font-semibold"
                                                             type="button">
                                                             ARCHIVE
-                                                        </button>
+                                                        </button> --}}
                                                     </div>
                                                 </div>
                                                 <!-- Delete Modal -->
@@ -376,7 +375,7 @@
                                                 </div>
 
                                                 <!-- Archive Modal -->
-                                                <div x-show="isArchiving" x-cloak
+                                                {{-- <div x-show="isArchiving" x-cloak
                                                     class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
                                                     <button type="button" @click="isArchiving = false"
                                                         class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -413,7 +412,7 @@
                                                             Yes, I'm sure
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
 
@@ -432,7 +431,18 @@
                                     </div>
 
                                 </div>
-                                <div class="mt-3"></div>
+                                <div class="mt-3 ">
+                                </div>
+                                <div class="ml-5 mb-2">
+                                    <button
+                                        class="follow-toggle-btn border p-2 rounded-md {{ Auth::user()->followings->contains($user) ? 'bg-zinc-500' : 'bg-blue-400' }}"
+                                        data-id="{{ $user->id }}"
+                                        data-following="{{ Auth::user()->followings->contains($user) ? 'true' : 'false' }}">
+                                        {{ Auth::user()->followings->contains($user) ? 'Unfollow' : 'Follow' }}
+                                    </button>
+
+
+                                </div>
                                 <hr class="border-gray-800">
                             </article>
                         </li>
@@ -444,6 +454,75 @@
 
     <script>
         $(document).ready(function() {
+
+            // $(document).on('click', '.archive-button', function() {
+            //     var button = $(this);
+            //     var postId = button.data('id');
+            //     var isArchive = button.data('archive');
+            //     var token = '{{ csrf_token() }}';
+            //     var newLabel = isArchive ? 'Archive' : 'Unarchive';
+
+            //     $.ajax({
+            //         url: '/posts/' + postId + '/toggle-archive',
+            //         type: 'POST',
+            //         data: {
+            //             _token: token,
+            //             is_archive: isArchive ? 0 : 1
+            //         },
+            //         success: function(response) {
+            //             if (response.success) {
+            //                 button.text(newLabel);
+            //                 button.data('archive', isArchive ? 0 : 1);
+            //                 button.toggleClass('archive-post unarchive-post');
+            //             } else {
+            //                 alert('An error occurred while updating the post.');
+            //             }
+            //         },
+            //         error: function(xhr, status, error) {
+            //             alert('An error occurred while updating the post.');
+            //             console.error('Error:', status, error);
+            //         }
+            //     });
+            // });
+
+            $(document).on('click', '.archive-button', function() {
+                var button = $(this);
+                var postId = button.data('id');
+                var isArchive = button.data('archive');
+                var token = '{{ csrf_token() }}';
+                var newLabel = isArchive ? 'Archive' : 'Unarchive';
+                var newColorClass = isArchive ?
+                    'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900' :
+                    'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900';
+                var oldColorClass = isArchive ?
+                    'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900' :
+                    'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900';
+
+                $.ajax({
+                    url: '/posts/' + postId + '/toggle-archive',
+                    type: 'POST',
+                    data: {
+                        _token: token,
+                        is_archive: isArchive ? 0 : 1
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            button.text(newLabel);
+                            button.data('archive', isArchive ? 0 : 1);
+                            button.removeClass(oldColorClass).addClass(newColorClass);
+                        } else {
+                            alert('An error occurred while updating the post.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred while updating the post.');
+                        console.error('Error:', status, error);
+                    }
+                });
+            });
+
+
+
 
 
 
