@@ -57,40 +57,6 @@ class GoogleAuthController extends Controller
         }
     }
 
-
-    // public function callbackGoogle()
-    // {
-    //     try {
-    //         $google_user = Socialite::driver('google')->user();
-    //         // dd($google_user);
-
-    //         $user = User::where('google_id', $google_user->getId())->first();
-
-    //         if (!$user) {
-    //             $username = $google_user->getNickname() ?: $this->generateUsername($google_user->getName());
-
-    //             $new_user = User::create([
-    //                 'fullName' => $google_user->getName(),
-    //                 'email' => $google_user->getEmail(),
-    //                 'username' => $username,
-    //                 'profile_picture' => $google_user->getAvatar(),
-    //                 'google_id' => $google_user->getId(),
-
-    //             ]);
-
-    //             Auth::login($new_user);
-
-    //             return redirect()->intended('/');
-    //         } else {
-    //             Auth::login($user);
-    //             return redirect()->intended('/');
-    //         }
-    //     } catch (\Exception $e) {
-    //         Log::info($e->getMessage());
-    //         dd('Something Went wrong!' . $e->getMessage());
-    //     }
-    // }
-
     protected function generateUsername($fullName)
     {
         // Remove spaces and make lowercase

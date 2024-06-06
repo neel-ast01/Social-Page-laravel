@@ -6,7 +6,7 @@
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Profile</h1>
             <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                post</button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
         </div>
 
         <div class="flex-grow h-0 overflow-auto">
@@ -435,11 +435,13 @@
                                 </div>
                                 <div class="ml-5 mb-2">
                                     <button
-                                        class="follow-toggle-btn border p-2 rounded-md {{ Auth::user()->followings->contains($user) ? 'bg-zinc-500' : 'bg-blue-400' }}"
-                                        data-id="{{ $user->id }}"
-                                        data-following="{{ Auth::user()->followings->contains($user) ? 'true' : 'false' }}">
-                                        {{ Auth::user()->followings->contains($user) ? 'Unfollow' : 'Follow' }}
+                                        class="archive-toggle-btn border p-2 rounded-md {{ $post->is_archive ? 'bg-yellow-500' : 'bg-blue-400' }}"
+                                        data-id="{{ $post->id }}"
+                                        data-archive="{{ $post->is_archive ? 'true' : 'false' }}">
+                                        {{ $post->is_archive ? 'Unarchive' : 'Archive' }}
                                     </button>
+
+
 
 
                                 </div>
@@ -454,6 +456,38 @@
 
     <script>
         $(document).ready(function() {
+
+            $(document).on('click', '.archive-toggle-btn', function() {
+                var button = $(this);
+                var postId = button.data('id');
+                var isArchive = button.data('archive');
+                var token = '{{ csrf_token() }}';
+                var newLabel = isArchive ? 'Archive' : 'Unarchive';
+                var newColorClass = isArchive ? 'bg-blue-400' : 'bg-yellow-500';
+                var oldColorClass = isArchive ? 'bg-yellow-500' : 'bg-blue-400';
+
+                $.ajax({
+                    url: '/posts/' + postId + '/toggle-archive',
+                    type: 'POST',
+                    data: {
+                        _token: token,
+                        is_archive: isArchive ? 0 : 1
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            button.text(newLabel);
+                            button.data('archive', !isArchive); // Toggle the archive state
+                            button.removeClass(oldColorClass).addClass(newColorClass);
+                        } else {
+                            alert('An error occurred while updating the post.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred while updating the post.');
+                        console.error('Error:', status, error);
+                    }
+                });
+            });
 
             // $(document).on('click', '.archive-button', function() {
             //     var button = $(this);
@@ -485,41 +519,42 @@
             //     });
             // });
 
-            $(document).on('click', '.archive-button', function() {
-                var button = $(this);
-                var postId = button.data('id');
-                var isArchive = button.data('archive');
-                var token = '{{ csrf_token() }}';
-                var newLabel = isArchive ? 'Archive' : 'Unarchive';
-                var newColorClass = isArchive ?
-                    'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900' :
-                    'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900';
-                var oldColorClass = isArchive ?
-                    'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900' :
-                    'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900';
+            //code is working
+            // $(document).on('click', '.archive-button', function() {
+            //     var button = $(this);
+            //     var postId = button.data('id');
+            //     var isArchive = button.data('archive');
+            //     var token = '{{ csrf_token() }}';
+            //     var newLabel = isArchive ? 'Archive' : 'Unarchive';
+            //     var newColorClass = isArchive ?
+            //         'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900' :
+            //         'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900';
+            //     var oldColorClass = isArchive ?
+            //         'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900' :
+            //         'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900';
 
-                $.ajax({
-                    url: '/posts/' + postId + '/toggle-archive',
-                    type: 'POST',
-                    data: {
-                        _token: token,
-                        is_archive: isArchive ? 0 : 1
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            button.text(newLabel);
-                            button.data('archive', isArchive ? 0 : 1);
-                            button.removeClass(oldColorClass).addClass(newColorClass);
-                        } else {
-                            alert('An error occurred while updating the post.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert('An error occurred while updating the post.');
-                        console.error('Error:', status, error);
-                    }
-                });
-            });
+            //     $.ajax({
+            //         url: '/posts/' + postId + '/toggle-archive',
+            //         type: 'POST',
+            //         data: {
+            //             _token: token,
+            //             is_archive: isArchive ? 0 : 1
+            //         },
+            //         success: function(response) {
+            //             if (response.success) {
+            //                 button.text(newLabel);
+            //                 button.data('archive', isArchive ? 0 : 1);
+            //                 button.removeClass(oldColorClass).addClass(newColorClass);
+            //             } else {
+            //                 alert('An error occurred while updating the post.');
+            //             }
+            //         },
+            //         error: function(xhr, status, error) {
+            //             alert('An error occurred while updating the post.');
+            //             console.error('Error:', status, error);
+            //         }
+            //     });
+            // });
 
 
 
