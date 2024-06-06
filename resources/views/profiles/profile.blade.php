@@ -1,14 +1,9 @@
-{{-- @include('partials.header')
-@include('partials.aside') --}}
 @extends('welcome')
 @section('content')
     <div class="flex flex-col flex-grow w-3/5 border-l border-r border-gray-300">
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
-            <h1 class="text-xl font-semibold">Profile</h1>
-            <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            post</button> -->
+            <h1 class="text-xl font-semibold">Profile</h1>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          post</button> -->
         </div>
-
         <div class="flex-grow h-0 overflow-auto">
             <!-- User card-->
             <div>
@@ -242,12 +237,6 @@
                                                             type="button">
                                                             UPDATE
                                                         </button>
-                                                        {{-- Archive Button --}}
-                                                        {{-- <button @click="isArchiving = true"
-                                                            class="w-full mt-1 px-4 py-2 text-left text-yellow-600 hover:bg-yellow-100 hover:text-yellow-900 font-semibold"
-                                                            type="button">
-                                                            ARCHIVE
-                                                        </button> --}}
                                                     </div>
                                                 </div>
                                                 <!-- Delete Modal -->
@@ -374,45 +363,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Archive Modal -->
-                                                {{-- <div x-show="isArchiving" x-cloak
-                                                    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 z-30">
-                                                    <button type="button" @click="isArchiving = false"
-                                                        class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                        data-modal-toggle="archiveModal">
-                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Close modal</span>
-                                                    </button>
 
-                                                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-
-                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want
-                                                        to archive this item?</p>
-
-                                                    <div class="flex justify-center items-center space-x-4">
-                                                        <button data-modal-toggle="archiveModal" type="button"
-                                                            @click="isArchiving = false"
-                                                            class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                            No, cancel
-                                                        </button>
-
-                                                        <button type="button" data-id="{{ $post->id }}"
-                                                            class="archive-post-button py-2 px-3 text-sm font-medium text-center text-white bg-yellow-600 rounded-lg hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900">
-                                                            Yes, I'm sure
-                                                        </button>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                         </div>
 
@@ -488,78 +439,6 @@
                     }
                 });
             });
-
-            // $(document).on('click', '.archive-button', function() {
-            //     var button = $(this);
-            //     var postId = button.data('id');
-            //     var isArchive = button.data('archive');
-            //     var token = '{{ csrf_token() }}';
-            //     var newLabel = isArchive ? 'Archive' : 'Unarchive';
-
-            //     $.ajax({
-            //         url: '/posts/' + postId + '/toggle-archive',
-            //         type: 'POST',
-            //         data: {
-            //             _token: token,
-            //             is_archive: isArchive ? 0 : 1
-            //         },
-            //         success: function(response) {
-            //             if (response.success) {
-            //                 button.text(newLabel);
-            //                 button.data('archive', isArchive ? 0 : 1);
-            //                 button.toggleClass('archive-post unarchive-post');
-            //             } else {
-            //                 alert('An error occurred while updating the post.');
-            //             }
-            //         },
-            //         error: function(xhr, status, error) {
-            //             alert('An error occurred while updating the post.');
-            //             console.error('Error:', status, error);
-            //         }
-            //     });
-            // });
-
-            //code is working
-            // $(document).on('click', '.archive-button', function() {
-            //     var button = $(this);
-            //     var postId = button.data('id');
-            //     var isArchive = button.data('archive');
-            //     var token = '{{ csrf_token() }}';
-            //     var newLabel = isArchive ? 'Archive' : 'Unarchive';
-            //     var newColorClass = isArchive ?
-            //         'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900' :
-            //         'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900';
-            //     var oldColorClass = isArchive ?
-            //         'bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900' :
-            //         'bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300 dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-900';
-
-            //     $.ajax({
-            //         url: '/posts/' + postId + '/toggle-archive',
-            //         type: 'POST',
-            //         data: {
-            //             _token: token,
-            //             is_archive: isArchive ? 0 : 1
-            //         },
-            //         success: function(response) {
-            //             if (response.success) {
-            //                 button.text(newLabel);
-            //                 button.data('archive', isArchive ? 0 : 1);
-            //                 button.removeClass(oldColorClass).addClass(newColorClass);
-            //             } else {
-            //                 alert('An error occurred while updating the post.');
-            //             }
-            //         },
-            //         error: function(xhr, status, error) {
-            //             alert('An error occurred while updating the post.');
-            //             console.error('Error:', status, error);
-            //         }
-            //     });
-            // });
-
-
-
-
-
 
             $('.delete-post-button').on('click', function() {
                 var postId = $(this).data('id');
@@ -637,7 +516,6 @@
                 var formData = new FormData(this);
                 var userId = $(this).data('id');
 
-                // console.log('hello', userId, formData);
                 $.ajax({
                     url: base_url + "profile/" + userId,
                     type: 'POST', // Use POST method

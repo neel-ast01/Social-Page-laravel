@@ -51,36 +51,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('posts', PostController::class);
 
-
-
     Route::get('/like', [LikeController::class, 'like'])->name('get.like');
     Route::post('/like', [LikeController::class, 'like'])->name('post.like');
 
     Route::resource('comments', CommentController::class);
     Route::resource('notifications', NotificationController::class);
 
-    // Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
-    // Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
-
-    // Route::post('/follow/{id}', [FollowController::class, 'follow'])->name('follow');
-    // Route::post('/unfollow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
-
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
     Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
 
-    // Route::delete('/follow/{id}', 'FollowController@unfollow')->name('unfollow');
-
-    // Route::post('/posts/archive/{id}', [PostController::class, 'archive'])->name('posts.archive');
-    // Route::post('/posts/unarchive/{id}', [PostController::class, 'unarchive'])->name('posts.unarchive');
-
     Route::post('/posts/{post}/toggle-archive', [PostController::class, 'toggleArchive'])->name('posts.toggleArchive');
-
-
-
-
-
-    Route::post('/archive', [ArchiveController::class, 'archive'])->name('archive');
-
-    Route::get('/archived-posts', [ArchiveController::class, 'index'])->name('archived-posts.index');
-    Route::post('/showHidePost', [ArchiveController::class, 'showHidePost'])->name('showHidePost');
 });

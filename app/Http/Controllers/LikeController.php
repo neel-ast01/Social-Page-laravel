@@ -36,19 +36,4 @@ class LikeController extends Controller
             dd($th->getMessage());
         }
     }
-
-    // public function unlike(Request $request)
-    // {
-    //     $post = Post::findOrFail($request->postid);
-    //     $user = Auth::user();
-
-    //     $like = Like::where('user_id', $user->id)->where('post_id', $post->id)->first();
-    //     if ($like) {
-    //         $like->delete();
-    //         $post->likes--;
-    //         $post->save();
-    //     }
-
-    //     return response()->json(['likes' => $post->likes]);
-    // }
 }

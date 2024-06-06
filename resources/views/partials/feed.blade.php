@@ -2,16 +2,10 @@
     <div class="flex flex-col flex-grow w-3/5 border-l border-r border-gray-300">
         <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 class="text-xl font-semibold">Feed Title</h1>
-            <!-- <button class="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">New
-                        post</button> -->
         </div>
         <!-- Feed -->
         <div class="flex-grow h-0 overflow-auto">
             <div class="flex w-full p-8 border-b-4 border-gray-300">
-                {{-- <span class="flex-shrink-0 w-12 h-12 bg-gray-400 rounded-full"></span> --}}
-                {{-- <img src="assests/{{ auth()->user()->profile_picture }}" class="w-12 h-12 rounded-full"
-                    style="background-color: #ccc;"> --}}
-
                 <div class="flex flex-col flex-grow ml-4">
                     <form action="/" id="postForm" method="post" enctype="multipart/form-data">
                         <textarea class="p-3 bg-transparent border border-gray-500 rounded-lg w-full" name="post_data" id="post_data"
@@ -92,52 +86,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-            <style>
-                .like-button.liked {
-                    background-color: darkred;
-                    color: white;
-                }
-
-                .posts .flex {
-                    transition: all 0.3s ease-in-out;
-                }
-            </style>
-
-            <!-- <style>
-                .red-like-button {
-                    color: red;
-                }
-            </style>
-            <script>
-                $(document).ready(function() {
-                    $('.like-button').on('click', function() {
-                        var postId = $(this).data('post-id');
-                        var likeCount = $(this).find('.likes-count');
-                        var button = $(this);
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '/posts/likes',
-                            data: {
-                                postId: postId
-                            },
-                            success: function(response) {
-                                likeCount.text(response);
-                                button.addClass('red-like-button'); // Add class to change color to red
-                            },
-                            error: function(xhr, textStatus, errorThrown) {
-                                console.log(xhr.responseText);
-                                console.log(textStatus);
-                                console.log(errorThrown);
-                            }
-                        });
-                    });
-                });
-            </script> -->
         </div>
     </div>
 @endsection

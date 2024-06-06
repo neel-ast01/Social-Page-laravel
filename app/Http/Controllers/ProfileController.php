@@ -15,9 +15,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $posts = $user->posts;
-        // $friends = User::where('id', '!=', Auth::id())->take(5)->get();
-        // return $user;
-        // return view('profiles.profile');
         return view('profiles.profile', compact('user', 'posts'));
     }
 

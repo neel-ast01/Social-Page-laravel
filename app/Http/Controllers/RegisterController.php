@@ -37,7 +37,6 @@ class RegisterController extends Controller
 
         SendWelcomeEmail::dispatch($user);
 
-        // Auth::login($user);
 
         return redirect()->route('posts.index')->with('success', 'User registered successfully');
     }

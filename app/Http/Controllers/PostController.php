@@ -32,25 +32,6 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        // $post = Post::findOrFail($request->postid);
-        // $user = Auth::user();
-
-        // $like = Like::where('user_id', $user->id)->where('post_id', $post->id)->first();
-
-        // if ($like) {
-        //     $like->delete();
-        //     $post->likes--;
-        // } else {
-        //     $like = new Like();
-        //     $like->user_id = $user->id;
-        //     $like->post_id = $post->id;
-        //     $like->save();
-        //     $post->likes++;
-        // }
-
-        // $post->save();
-
-        // return response()->json(['likes' => $post->likes]);
     }
 
     /**

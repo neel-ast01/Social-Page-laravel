@@ -26,8 +26,6 @@ class NotificationController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // return $notifications;
-        // $friends = User::where('id', '!=', Auth::id())->take(5)->get();
         return view('notification.notification', compact('notifications'));
     }
 

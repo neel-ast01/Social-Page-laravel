@@ -12,7 +12,6 @@
         <div class="flex justify-between mx-32 w-screen h-screen px-4 text-gray-700">
             @include('partials.aside')
             @yield('content')
-            {{-- @include('partials.feed') --}}
             @include('partials.trending')
         </div>
     </div>
