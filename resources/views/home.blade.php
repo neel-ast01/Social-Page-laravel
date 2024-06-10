@@ -2,13 +2,12 @@
    @section('content')
        <div class="flex flex-col flex-grow w-3/5 border-l border-r border-gray-300">
            <div class="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
-               <h1 class="text-xl font-semibold">Feed Title</h1> post</button> -->
+               <h1 class="text-xl font-semibold">Feed Title</h1> 
            </div>
            <!-- Feed -->
            <div class="flex-grow h-0 overflow-auto">
                <div class="flex w-full p-8 border-b-4 border-gray-300">
-                   <img src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"
-                       class="w-12 h-12 rounded-full" style="background-color: #ccc;">
+                   <img src="{{ is_external_url($user->profile_picture) ? $user->profile_picture : asset('assests/' . $user->profile_picture) }}"  class="w-12 h-12 rounded-full" style="background-color: #ccc;">
 
 
                    <div class="flex flex-col flex-grow ml-4">
